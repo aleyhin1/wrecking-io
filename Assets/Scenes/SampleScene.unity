@@ -2361,7 +2361,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -2392,7 +2392,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: 3
+  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -2411,8 +2411,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
-  m_LocalPosition: {x: 0, y: 14, z: 61}
+  m_LocalRotation: {x: 0.19517365, y: -0.68517685, z: 0.19877361, w: 0.673}
+  m_LocalPosition: {x: 68.922485, y: 8.507828, z: 1.3986713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3964,7 +3964,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c5945da26320544f98257c3de8480a1, type: 2}
+  - {fileID: 2100000, guid: 31fffcbad51e7e24ca2f652924994bb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4037,8 +4037,8 @@ Transform:
   m_GameObject: {fileID: 1391885203}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 189.73695, y: 163.5319, z: 19.144636}
-  m_LocalScale: {x: 25, y: 25, z: 20}
+  m_LocalPosition: {x: 103.91339, y: 163.5319, z: 19.144636}
+  m_LocalScale: {x: 25, y: 30, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 552773352}
@@ -4099,6 +4099,7 @@ GameObject:
   - component: {fileID: 1391585203}
   - component: {fileID: 1388685213}
   - component: {fileID: 1389684061}
+  - component: {fileID: 1391885204}
   m_Layer: 0
   m_Name: Water_box
   m_TagString: Untagged
@@ -4106,6 +4107,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1391885204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391885203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6f1663687310945bf1d8f2c49394e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTextures: 1
+  texturePropertyName: _DiffTex
+  textureA_X: -0.1
+  textureA_Y: -0.1
+  textureB_X: -0.15
+  textureB_Y: -0.12
+  speedMultiplier: 0.1
+  activeColor: 0
+  colorMaterial: {fileID: 0}
+  colorPropertyName: 
+  RMult: 0
+  GMult: 0
+  BMult: 0
+  AMult: 0
 --- !u!1 &1391885211
 GameObject:
   m_ObjectHideFlags: 0

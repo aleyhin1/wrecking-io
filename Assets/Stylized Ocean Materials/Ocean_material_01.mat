@@ -149,7 +149,7 @@ Material:
     - _node_9095: 91
     - _node_9294: 0.752
     m_Colors:
-    - _Color: {r: 0.7880324, g: 0.7205882, b: 1, a: 1}
+    - _Color: {r: 0, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _WaterColor: {r: 0.06666665, g: 0.5647059, b: 0.4692604, a: 1}
     - _node_3975: {r: 1, g: 1, b: 1, a: 1}
