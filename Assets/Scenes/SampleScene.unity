@@ -424,7 +424,7 @@ Transform:
   m_GameObject: {fileID: 115447912}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 174.91339, y: 188.29784, z: -60.356094}
+  m_LocalPosition: {x: 181.91339, y: 188.29784, z: -54.356094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2007,6 +2007,7 @@ Transform:
   - {fileID: 1716786318}
   - {fileID: 705507995}
   - {fileID: 115447913}
+  - {fileID: 1051562387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557901161
@@ -3869,7 +3870,7 @@ GameObject:
   - component: {fileID: 1051562386}
   - component: {fileID: 1051562388}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: PreGameFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3904,13 +3905,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051562385}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: -23, z: -77}
-  m_LocalScale: {x: 50, y: 0, z: 20}
+  m_LocalRotation: {x: 0.052899774, y: -0, z: -0, w: 0.9985998}
+  m_LocalPosition: {x: 174.91339, y: 181.29784, z: -59.356094}
+  m_LocalScale: {x: 50, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 552773352}
+  m_LocalEulerAnglesHint: {x: 6.065, y: 0, z: 0}
 --- !u!54 &1051562388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3936,7 +3937,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1001 &1079695945
 PrefabInstance:
@@ -8331,4 +8332,3 @@ SceneRoots:
   - {fileID: 2082489587}
   - {fileID: 552773352}
   - {fileID: 114354463}
-  - {fileID: 1051562387}
