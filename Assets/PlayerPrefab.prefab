@@ -169,11 +169,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3812476288660348854, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4025526790003978195, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
       propertyPath: m_Name
       value: WreckerPrefab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8451862677963799383, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3812476288660348854, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
+    - {fileID: 6485087461907358202, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
+    - {fileID: 2208169543456029497, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
+    - {fileID: 6891308293228419292, guid: ebf202db326a8ef4983fdca532dada88, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
