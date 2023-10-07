@@ -5,32 +5,34 @@ using UnityEngine;
 
 public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
-    private Vector2? touchPosition;
-    private Camera _camera;
+    public GameObject JoystickBackground;
+    public GameObject JoystickHandle;
 
-    private void Start()
+    private void OnEnable()
     {
-        _camera = FindObjectOfType<Camera>();
+        var Runner = FindObjectOfType<NetworkRunner>();
+        Runner.AddCallbacks(this);
     }
+
 
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
-        NetworkInputData inputData = new NetworkInputData();
-
         if (Input.touchCount > 0)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-                touchPosition = Input.GetTouch(0).position;
+            NetworkInputData inputData = new NetworkInputData();
 
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
-                touchPosition = null;
+            inputData.JoystickBackgroundPosition = JoystickBackground.transform.position;
+            inputData.JoystickHandlePosition = JoystickHandle.transform.position;
 
-            if (touchPosition != null)
-            {
-                Vector2 lookVectorPixelCord = Input.GetTouch(0).position - (Vector2)touchPosition;
-                inputData.LookDirection = _camera.ScreenToWorldPoint(lookVectorPixelCord).normalized;
-            }
-        }  
+            input.Set(inputData);
+        }
+    }
+
+    public void OnDisable()
+    {
+        var Runner = FindObjectOfType<NetworkRunner>();
+        if (Runner != null)
+            Runner.RemoveCallbacks(this);
     }
 
     #region NetworkRunnerCallbacks
@@ -49,5 +51,5 @@ public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnSceneLoadDone(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnSceneLoadStart(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
-    #endregion
+    #endregion NetworkRunnerCallbacks
 }

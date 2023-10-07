@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6765825208885937198}
   - component: {fileID: 7043149387126647249}
   - component: {fileID: -2712030796061428653}
+  - component: {fileID: -3293262974271608843}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 3845435756931648834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.2850285, y: -14.200146, z: -59.453667}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -65,6 +66,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1004755606278664803}
   - {fileID: -2712030796061428653}
+  - {fileID: -3293262974271608843}
   SimulationBehaviours: []
 --- !u!143 &533101955851374804
 CharacterController:
@@ -217,6 +219,20 @@ MonoBehaviour:
   CarMaterials:
   - {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
   - {fileID: 2100000, guid: 84073868574a8cc489894b185bca3082, type: 2}
+--- !u!114 &-3293262974271608843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845435756931648834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea6a9518c9cf1a46ba86fb35e5a3a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _camera: {fileID: 3198787937485706482, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
 --- !u!1 &7538415655873416815
 GameObject:
   m_ObjectHideFlags: 0

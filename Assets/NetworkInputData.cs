@@ -5,5 +5,6 @@ using UnityEngine;
 
 public struct NetworkInputData : INetworkInput
 {
-    public Vector2 LookDirection;
+    public Vector2 JoystickBackgroundPosition;
+    public Vector2 JoystickHandlePosition;
 }
