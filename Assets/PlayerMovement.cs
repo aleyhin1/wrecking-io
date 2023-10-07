@@ -18,12 +18,13 @@ public class PlayerMovement : NetworkBehaviour
     private void Rotate(Vector2 backgroundPos, Vector2 handlePos)
     {
         float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
-        transform.eulerAngles = new Vector3 (0, rotationAngle, 0);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)
     {
-        Vector2 DifferenceVectorNormalized = (lastVector - initialVector).normalized;
+        Vector2 DifferenceVectorNormalized = (lastVector - initialVector);
         return Mathf.Atan2(-DifferenceVectorNormalized.y, DifferenceVectorNormalized.x) * Mathf.Rad2Deg;
     }
 }
