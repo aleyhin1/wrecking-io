@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
     public NetworkDebugStart starter;
-
     public GameSettings Settings { get; set; } = GameSettings.Default;
 
     public override void Spawned()
@@ -22,6 +21,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         starter.Shutdown();
     }
 
+    #region NetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
@@ -38,4 +38,5 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnSceneLoadDone(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnSceneLoadStart(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
+    #endregion
 }

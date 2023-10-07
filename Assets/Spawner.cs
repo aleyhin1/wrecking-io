@@ -8,7 +8,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     public Transform[] SpawnPositions;
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
-    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+    public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private int _spawnCount = 0;
 
     public override void Spawned()
