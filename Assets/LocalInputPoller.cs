@@ -3,39 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
+public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public Transform[] SpawnPositions;
+    private Vector2? touchPosition;
+    private Camera _camera;
 
-    [SerializeField] private NetworkPrefabRef _playerPrefab;
-    public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-    private int _spawnCount = 0;
-
-    public override void Spawned()
+    private void Start()
     {
-        base.Spawned();
-        Runner.AddCallbacks(this);
+        _camera = FindObjectOfType<Camera>();
     }
 
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
-        if (runner.IsServer)
-        {
-            Vector3 spawnPosition = SpawnPositions[_spawnCount++].position;
-            Quaternion rotation = Quaternion.Euler(0, -90, 0);
-            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, rotation, player);
+        NetworkInputData inputData = new NetworkInputData();
 
-            _spawnedCharacters.Add(player, networkPlayerObject);
-        }
+        if (Input.touchCount > 0)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+                touchPosition = Input.GetTouch(0).position;
+
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+                touchPosition = null;
+
+            if (touchPosition != null)
+            {
+                Vector2 lookVectorPixelCord = Input.GetTouch(0).position - (Vector2)touchPosition;
+                inputData.LookDirection = _camera.ScreenToWorldPoint(lookVectorPixelCord).normalized;
+            }
+        }  
     }
 
     #region NetworkRunnerCallbacks
+    void INetworkRunnerCallbacks.OnPlayerJoined(Fusion.NetworkRunner runner, Fusion.PlayerRef player) { }
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
     void INetworkRunnerCallbacks.OnDisconnectedFromServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
-    void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input) { }
     void INetworkRunnerCallbacks.OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     void INetworkRunnerCallbacks.OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     void INetworkRunnerCallbacks.OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
