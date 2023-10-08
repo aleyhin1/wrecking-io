@@ -6,16 +6,24 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     public Camera _camera;
+    private NetworkTransform _transform;
 
     [SerializeField] private float _movementSpeed = 20;
+    //private NetworkCharacterControllerPrototype _characterController;
 
+    public override void Spawned()
+    {
+        base.Spawned();
+        _transform = GetComponent<NetworkTransform>();
+    }
 
     public override void FixedUpdateNetwork()
     {
         if (GetInput<NetworkInputData>(out var input))
         {
-            Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
-            Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+           Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+           Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+            _transform.Render();
         }
     }
 

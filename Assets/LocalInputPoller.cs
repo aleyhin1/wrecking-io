@@ -17,15 +17,17 @@ public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
-        if (Input.touchCount > 0)
-        {
-            NetworkInputData inputData = new NetworkInputData();
+        //if (Input.touchCount > 0)
+        //{
+            
+        //}
 
-            inputData.JoystickBackgroundPosition = JoystickBackground.transform.position;
-            inputData.JoystickHandlePosition = JoystickHandle.transform.position;
+        NetworkInputData inputData = new NetworkInputData();
 
-            input.Set(inputData);
-        }
+        inputData.JoystickBackgroundPosition = JoystickBackground.transform.position;
+        inputData.JoystickHandlePosition = JoystickHandle.transform.position;
+
+        input.Set(inputData);
     }
 
     public void OnDisable()

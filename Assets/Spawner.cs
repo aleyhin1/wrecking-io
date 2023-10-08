@@ -22,7 +22,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             Vector3 spawnPosition = SpawnPositions[_spawnCount++].position;
-            Quaternion rotation = Quaternion.Euler(0, -90, 0);
+            Quaternion rotation = Quaternion.Euler(0, 0, 0);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, rotation, player);
 
             _spawnedCharacters.Add(player, networkPlayerObject);
