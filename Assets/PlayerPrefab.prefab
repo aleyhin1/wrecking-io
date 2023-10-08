@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6765825208885937198}
   - component: {fileID: -2712030796061428653}
   - component: {fileID: -3293262974271608843}
-  - component: {fileID: -1037879871551631035}
+  - component: {fileID: 8112882960527840160}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -63,7 +63,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -2712030796061428653}
   - {fileID: -3293262974271608843}
-  - {fileID: -1037879871551631035}
+  - {fileID: 8112882960527840160}
   - {fileID: 1580890553511363198}
   SimulationBehaviours: []
 --- !u!54 &5387523177287191101
@@ -76,23 +76,23 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 2, z: 0}
+  m_InertiaTensor: {x: 0, y: 1, z: 1}
+  m_InertiaRotation: {x: 0.00880202, y: 0.008649721, z: 0.008649721, w: 0.9998864}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &6765825208885937198
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3845435756931648834}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8c460efec857e984f9942854a48b319a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   _camera: {fileID: 3198787937485706482, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
   _movementSpeed: 10
---- !u!114 &-1037879871551631035
+--- !u!114 &8112882960527840160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,10 +158,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3845435756931648834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 2
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 6485220423679283763}
   InterpolateErrorCorrection: 1
@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1580890553511363198}
   - component: {fileID: 4824876044506993552}
   - component: {fileID: 4282789011813523022}
+  - component: {fileID: 1290144795910072360}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -254,7 +255,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5296693500120669234}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -266,13 +267,13 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1580890553511363198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
+  _interpolationDataSource: 2
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 5254945159532395581}
   InterpolateErrorCorrection: 1
@@ -308,7 +309,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5296693500120669234}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8f6dae4109f11254ea5eb05fedc963e7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -349,6 +350,18 @@ ParentConstraint:
   m_Sources:
   - sourceTransform: {fileID: 8209343898440603657}
     weight: 1
+--- !u!114 &1290144795910072360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5296693500120669234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff1c5e5eff72ae43b397857b4353abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6581020751115810695
 GameObject:
   m_ObjectHideFlags: 0

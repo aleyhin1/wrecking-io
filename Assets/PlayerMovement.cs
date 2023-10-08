@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     public Camera _camera;
-    private NetworkTransform _transform;
+    private NetworkRigidbody _networkRigidbody;
+    private Rigidbody _rigidBody;
 
     [SerializeField] private float _movementSpeed = 20;
     //private NetworkCharacterControllerPrototype _characterController;
@@ -14,16 +15,17 @@ public class PlayerMovement : NetworkBehaviour
     public override void Spawned()
     {
         base.Spawned();
-        _transform = GetComponent<NetworkTransform>();
+        _networkRigidbody = GetComponent<NetworkRigidbody>();
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     public override void FixedUpdateNetwork()
     {
         if (GetInput<NetworkInputData>(out var input))
         {
-           Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+            Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
            Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
-            _transform.Render();
+            //_networkRigidbody.Render();
         }
     }
 
@@ -31,12 +33,14 @@ public class PlayerMovement : NetworkBehaviour
     {
         float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
+        _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
     }
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        transform.Translate(GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime, Space.World);
+        //transform.Translate(GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime, Space.World);
+        //_rigidBody.MovePosition(GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime);
+        _rigidBody.position += GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime;
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)
