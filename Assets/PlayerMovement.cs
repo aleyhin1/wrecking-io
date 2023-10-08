@@ -25,7 +25,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
            Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
-            //_networkRigidbody.Render();
         }
     }
 
@@ -33,7 +32,8 @@ public class PlayerMovement : NetworkBehaviour
     {
         float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
 
-        _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
+        if (rotationAngle != 0)
+            _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
     }
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
