@@ -1,16 +1,41 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Security;
 using UnityEngine;
+using static GameState;
 
 public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
+    public static GameManager Instance { get; set; }
+    public static GameState State { get; set; }
+    public static StartGameScript StartGameScript { get; set; }
+    public static CameraManager CameraManager { get; set; }
+
     public NetworkDebugStart starter;
     public GameSettings Settings { get; set; } = GameSettings.Default;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            State = GetComponent<GameState>();
+            StartGameScript = GetComponent<StartGameScript>();
+            CameraManager = GetComponent<CameraManager>();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public override void Spawned()
     {
         base.Spawned();
+        if (Runner.IsServer)
+        {
+            State.Server_SetState(EGameState.Pregame);
+        }
         Runner.AddCallbacks(this);
     }
 
@@ -19,6 +44,13 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         base.Despawned(runner, hasState);
         runner.RemoveCallbacks(this);
         starter.Shutdown();
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_StartArena()
+    {
+        Debug.Log("RPC_StartArena");
+        State.Server_SetState(EGameState.Play);
     }
 
     #region NetworkRunnerCallbacks
