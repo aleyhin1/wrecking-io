@@ -15,6 +15,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     public GameObject PreRoomCube;
     public GameObject DeathScreen;
+    public GameObject PreGameScreen;
     public NetworkDebugStart starter;
     public GameSettings Settings { get; set; } = GameSettings.Default;
 

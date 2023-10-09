@@ -21,7 +21,7 @@ public class CameraConstraint : MonoBehaviour
     {
         Vector3 playerPosition = ColorChanger.instance.gameObject.transform.position;
         float Offset = -12.8f;
-        Vector3 movePosition = new Vector3(playerPosition.x, 40, playerPosition.z + Offset);
+        Vector3 movePosition = new Vector3(playerPosition.x, 30, playerPosition.z + Offset);
         transform.position = movePosition;
     }
 }

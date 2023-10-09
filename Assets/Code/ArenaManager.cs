@@ -20,7 +20,7 @@ public class ArenaManager : NetworkBehaviour
     private void OnEnable()
     {
         InitCircles();
-        timer = TickTimer.CreateFromSeconds(Runner,10f);
+        timer = TickTimer.CreateFromSeconds(Runner,30f);
     }
 
     public override void FixedUpdateNetwork()
@@ -35,7 +35,7 @@ public class ArenaManager : NetworkBehaviour
             }
 
             timer = TickTimer.None;
-            timer = TickTimer.CreateFromSeconds(Runner, 10f);
+            timer = TickTimer.CreateFromSeconds(Runner, 30f);
         }
     }
 
