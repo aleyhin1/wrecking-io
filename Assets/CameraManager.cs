@@ -7,6 +7,7 @@ public class CameraManager : MonoBehaviour
     public Camera MenuCamera;
     public Camera PreRoomCamera;
     public Camera ArenaCamera;
+    public Camera SpectatorCamera;
 
     public void SwitchCamera(Camera previousCamera, Camera newCamera)
     {

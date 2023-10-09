@@ -13,6 +13,8 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public static CameraManager CameraManager { get; set; }
     public static ArenaManager ArenaManager { get; set; }
 
+    public GameObject PreRoomCube;
+    public GameObject DeathScreen;
     public NetworkDebugStart starter;
     public GameSettings Settings { get; set; } = GameSettings.Default;
 

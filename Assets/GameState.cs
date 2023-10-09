@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameState : NetworkBehaviour
 {
-    public enum EGameState { Pregame, Play, Postgame}
+    public enum EGameState { Pregame, Play, Death, Postgame}
 
     [Networked] public EGameState Previous { get; set; }
     [Networked] public EGameState Current { get; set; }
@@ -26,12 +26,20 @@ public class GameState : NetworkBehaviour
             {
                 GameManager.StartGameScript.RPC_StartGame();
                 GameManager.ArenaManager.enabled = true;
+                GameManager.Instance.PreRoomCube.SetActive(false);
             }
             if (Runner.IsClient)
             {
                 GameManager.CameraManager.SwitchCamera(GameManager.CameraManager.PreRoomCamera, GameManager.CameraManager.ArenaCamera);
                 GameManager.ArenaManager.enabled = true;
+                GameManager.Instance.PreRoomCube.SetActive(false);
             }
+        };
+
+        StateMachine[EGameState.Death].onEnter = state =>
+        {
+            //GameManager.CameraManager.SwitchCamera(GameManager.CameraManager.ArenaCamera, GameManager.CameraManager.SpectatorCamera);
+            GameManager.Instance.DeathScreen.SetActive(true);
         };
     }
 
