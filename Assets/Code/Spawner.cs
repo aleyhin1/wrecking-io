@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public Transform[] SpawnPositions;
+    [SerializeField] private Transform[] _spawnPositions;
 
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
@@ -21,7 +21,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPosition = SpawnPositions[_spawnCount++].position;
+            Vector3 spawnPosition = _spawnPositions[_spawnCount++].position;
             Quaternion rotation = Quaternion.Euler(0, -90, 0);
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
             networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);

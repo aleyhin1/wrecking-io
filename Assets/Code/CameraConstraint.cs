@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class CameraConstraint : MonoBehaviour
 {
-    public GameObject JoyStick;
+    [SerializeField] private GameObject _joystick;
+
 
     private void OnEnable()
     {
-        JoyStick.SetActive(true);
+        _joystick.SetActive(true);
     }
+
 
     private void Update()
     {
@@ -19,9 +21,9 @@ public class CameraConstraint : MonoBehaviour
 
     private void LockCameraToPlayer()
     {
-        Vector3 playerPosition = ColorChanger.instance.gameObject.transform.position;
-        float Offset = -12.8f;
-        Vector3 movePosition = new Vector3(playerPosition.x, 30, playerPosition.z + Offset);
+        Vector3 playerPosition = ColorChanger.Instance.gameObject.transform.position;
+        float offset = -12.8f;
+        Vector3 movePosition = new Vector3(playerPosition.x, 30, playerPosition.z + offset);
         transform.position = movePosition;
     }
 }

@@ -8,6 +8,7 @@ public class NetworkStartBridge : MonoBehaviour
     public TMPro.TMP_InputField HostCodeField;
     public TMPro.TMP_InputField JoinCodeField;
 
+    // Sets the Roomcode provided
     private void OnEnable()
     {
         HostCodeField.text = Starter.DefaultRoomName;

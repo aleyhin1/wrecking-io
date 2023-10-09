@@ -225,7 +225,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52364554}
-  - component: {fileID: 52364555}
   m_Layer: 0
   m_Name: PreGameScreen
   m_TagString: Untagged
@@ -254,18 +253,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &52364555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52364553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08365f18b7a4e334b932a85120ca6b3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &53655424 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 622466920898136070, guid: 4fefc4c32e76bb9499a577f32819d5b2, type: 3}
@@ -9277,7 +9264,7 @@ MonoBehaviour:
   PreRoomCube: {fileID: 1678867113}
   DeathScreen: {fileID: 582245872}
   PreGameScreen: {fileID: 52364553}
-  starter: {fileID: 114354465}
+  Starter: {fileID: 114354465}
 --- !u!114 &1716129571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9320,7 +9307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  SpawnPositions:
+  _spawnPositions:
   - {fileID: 115447913}
   - {fileID: 1434580962}
   - {fileID: 548267241}
@@ -12148,6 +12135,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1185437007288780309, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
       propertyPath: JoyStick
+      value: 
+      objectReference: {fileID: 2101550678}
+    - target: {fileID: 1185437007288780309, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
+      propertyPath: Joystick
+      value: 
+      objectReference: {fileID: 2101550678}
+    - target: {fileID: 1185437007288780309, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
+      propertyPath: _joystick
       value: 
       objectReference: {fileID: 2101550678}
     - target: {fileID: 3890906351358132651, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}

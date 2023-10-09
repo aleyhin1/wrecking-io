@@ -7,16 +7,16 @@ using static GameState;
 
 public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public static GameManager Instance { get; set; }
-    public static GameState State { get; set; }
-    public static StartGameScript StartGameScript { get; set; }
-    public static CameraManager CameraManager { get; set; }
-    public static ArenaManager ArenaManager { get; set; }
+    public static GameManager Instance { get; private set; }
+    public static GameState State { get; private set; }
+    public static StartGameScript StartGameScript { get; private set; }
+    public static CameraManager CameraManager { get; private set; }
+    public static ArenaManager ArenaManager { get; private set; }
 
     public GameObject PreRoomCube;
     public GameObject DeathScreen;
     public GameObject PreGameScreen;
-    public NetworkDebugStart starter;
+    public NetworkDebugStart Starter;
     public GameSettings Settings { get; set; } = GameSettings.Default;
 
 
@@ -38,10 +38,12 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public override void Spawned()
     {
         base.Spawned();
+
         if (Runner.IsServer)
         {
             State.Server_SetState(EGameState.Pregame);
         }
+
         Runner.AddCallbacks(this);
     }
 
@@ -49,7 +51,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     {
         base.Despawned(runner, hasState);
         runner.RemoveCallbacks(this);
-        starter.Shutdown();
+        Starter.Shutdown();
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]

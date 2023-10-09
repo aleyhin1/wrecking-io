@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct GameSettings: INetworkStruct
+public struct GameSettings : INetworkStruct
 {
     public const byte MIN_BOTCOUNT = 0;
     public const byte MAX_BOTCOUNT = 4;

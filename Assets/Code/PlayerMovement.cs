@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    public Camera _camera;
-    private Rigidbody _rigidBody;
-
     [SerializeField] private float _movementSpeed = 20;
-    //private NetworkCharacterControllerPrototype _characterController;
+    private Rigidbody _rigidBody;
 
     public override void Spawned()
     {
@@ -30,14 +27,13 @@ public class PlayerMovement : NetworkBehaviour
     {
         float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
 
+        // Zero check to prevent rb to snap back to zero rotation
         if (rotationAngle != 0)
             _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
     }
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        //transform.Translate(GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime, Space.World);
-        //_rigidBody.MovePosition(GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime);
         _rigidBody.position += GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime;
     }
 

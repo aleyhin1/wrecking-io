@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ArenaManager : NetworkBehaviour
 {
-    [Networked] TickTimer timer { get; set; }
-
     public GameObject[] Circle0;
     public GameObject[] Circle1;
     public GameObject[] Circle2;
@@ -14,47 +12,58 @@ public class ArenaManager : NetworkBehaviour
     public GameObject[] Circle4;
     public GameObject[] Floors;
 
-    private int CircleCount = 0;
-    private GameObject[][] Circles;
+    [Networked] private TickTimer timer { get; set; }
+
+    private GameObject[][] _circles;
+    private int _circleCount = 0;
+    private float _decayDelayInSeconds = 30f;
+
 
     private void OnEnable()
     {
         InitCircles();
-        timer = TickTimer.CreateFromSeconds(Runner,30f);
-    }
 
-    public override void FixedUpdateNetwork()
-    {
-        base.FixedUpdateNetwork();
-        if (timer.Expired(Runner))
-        {
-            if (CircleCount < Circles.Length)
-            {
-                DecayArena(CircleCount);
-                CircleCount++;
-            }
-
-            timer = TickTimer.None;
-            timer = TickTimer.CreateFromSeconds(Runner, 30f);
-        }
+        timer = TickTimer.CreateFromSeconds(Runner,_decayDelayInSeconds);
     }
 
     private void InitCircles()
     {
-        Circles = new GameObject[5][];
-        Circles[0] = Circle0;
-        Circles[1] = Circle1;
-        Circles[2] = Circle2;
-        Circles[3] = Circle4;
-        Circles[4] = Circle3;
+        _circles = new GameObject[5][];
+        _circles[0] = Circle0;
+        _circles[1] = Circle1;
+        _circles[2] = Circle2;
+        _circles[3] = Circle4;
+        _circles[4] = Circle3;
+    }
+    
+
+    // Decays one circle of the arena for every _decayDelayInSeconds seconds
+    public override void FixedUpdateNetwork()
+    {
+        base.FixedUpdateNetwork();
+
+        if (timer.Expired(Runner))
+        {
+            if (_circleCount < _circles.Length)
+            {
+                DecayArena(_circleCount);
+
+                _circleCount++;
+            }
+
+            timer = TickTimer.None;
+            timer = TickTimer.CreateFromSeconds(Runner, _decayDelayInSeconds);
+        }
     }
 
+    // Moves the arena circle and corresponding floor collider downwards
     private void DecayArena(int index)
     {
-        foreach (GameObject obj in Circles[index])
+        foreach (GameObject obj in _circles[index])
         {
             StartCoroutine(MoveObjectDown(obj));
         }
+
         StartCoroutine(MoveObjectDown(Floors[index]));
     }
 
@@ -62,13 +71,13 @@ public class ArenaManager : NetworkBehaviour
     {
         var objPosition = obj.transform.position;
         var targetPosition = objPosition + new Vector3(0, -5, 0);
-        float speed = UnityEngine.Random.Range(.1f, .2f);
+        float speed = Random.Range(.1f, .2f);
 
         while (objPosition.y > targetPosition.y)
         {
             obj.transform.position = Vector3.MoveTowards(objPosition, targetPosition, speed * Runner.DeltaTime);
-
             objPosition = obj.transform.position;
+
             yield return new WaitForEndOfFrame();
         }
         

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public GameObject JoystickBackground;
-    public GameObject JoystickHandle;
+    [SerializeField] private GameObject JoystickBackground;
+    [SerializeField] private GameObject JoystickHandle;
 
     private void OnEnable()
     {
@@ -17,11 +17,6 @@ public class LocalInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
     {
-        //if (Input.touchCount > 0)
-        //{
-            
-        //}
-
         NetworkInputData inputData = new NetworkInputData();
 
         inputData.JoystickBackgroundPosition = JoystickBackground.transform.position;
