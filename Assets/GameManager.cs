@@ -11,9 +11,11 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public static GameState State { get; set; }
     public static StartGameScript StartGameScript { get; set; }
     public static CameraManager CameraManager { get; set; }
+    public static ArenaManager ArenaManager { get; set; }
 
     public NetworkDebugStart starter;
     public GameSettings Settings { get; set; } = GameSettings.Default;
+
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
             State = GetComponent<GameState>();
             StartGameScript = GetComponent<StartGameScript>();
             CameraManager = GetComponent<CameraManager>();
+            ArenaManager = GetComponent<ArenaManager>();
         }
         else
         {
@@ -49,7 +52,6 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_StartArena()
     {
-        Debug.Log("RPC_StartArena");
         State.Server_SetState(EGameState.Play);
     }
 

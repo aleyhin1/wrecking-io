@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     public Camera _camera;
-    private NetworkRigidbody _networkRigidbody;
     private Rigidbody _rigidBody;
 
     [SerializeField] private float _movementSpeed = 20;
@@ -15,7 +14,6 @@ public class PlayerMovement : NetworkBehaviour
     public override void Spawned()
     {
         base.Spawned();
-        _networkRigidbody = GetComponent<NetworkRigidbody>();
         _rigidBody = GetComponent<Rigidbody>();
     }
 

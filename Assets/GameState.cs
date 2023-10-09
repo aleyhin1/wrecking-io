@@ -17,19 +17,20 @@ public class GameState : NetworkBehaviour
     {
         StateMachine[EGameState.Pregame].onEnter = state =>
         {
-            
+
         };
 
         StateMachine[EGameState.Play].onEnter = state =>
         {
-            Debug.Log("Game is On");
             if (Runner.IsServer)
             {
                 GameManager.StartGameScript.RPC_StartGame();
+                GameManager.ArenaManager.enabled = true;
             }
             if (Runner.IsClient)
             {
                 GameManager.CameraManager.SwitchCamera(GameManager.CameraManager.PreRoomCamera, GameManager.CameraManager.ArenaCamera);
+                GameManager.ArenaManager.enabled = true;
             }
         };
     }
