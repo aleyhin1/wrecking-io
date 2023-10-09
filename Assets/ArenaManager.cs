@@ -12,6 +12,7 @@ public class ArenaManager : NetworkBehaviour
     public GameObject[] Circle2;
     public GameObject[] Circle3;
     public GameObject[] Circle4;
+    public GameObject[] Floors;
 
     private int CircleCount = 0;
     private GameObject[][] Circles;
@@ -29,7 +30,7 @@ public class ArenaManager : NetworkBehaviour
         {
             if (CircleCount < Circles.Length)
             {
-                DecayArena((CircleCount));
+                DecayArena(CircleCount);
                 CircleCount++;
             }
 
@@ -54,13 +55,14 @@ public class ArenaManager : NetworkBehaviour
         {
             StartCoroutine(MoveObjectDown(obj));
         }
+        StartCoroutine(MoveObjectDown(Floors[index]));
     }
 
     private IEnumerator MoveObjectDown(GameObject obj)
     {
         var objPosition = obj.transform.position;
         var targetPosition = objPosition + new Vector3(0, -5, 0);
-        float speed = Random.Range(.1f, .2f);
+        float speed = UnityEngine.Random.Range(.1f, .2f);
 
         while (objPosition.y > targetPosition.y)
         {
