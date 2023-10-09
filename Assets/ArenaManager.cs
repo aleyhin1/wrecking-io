@@ -6,11 +6,20 @@ using UnityEngine;
 public class ArenaManager : NetworkBehaviour
 {
     [Networked] TickTimer timer { get; set; }
+
     public GameObject[] Circle0;
+    public GameObject[] Circle1;
+    public GameObject[] Circle2;
+    public GameObject[] Circle3;
+    public GameObject[] Circle4;
+
+    private int CircleCount = 0;
+    private GameObject[][] Circles;
 
     private void OnEnable()
     {
-        timer = TickTimer.CreateFromSeconds(Runner,2f);
+        InitCircles();
+        timer = TickTimer.CreateFromSeconds(Runner,10f);
     }
 
     public override void FixedUpdateNetwork()
@@ -18,15 +27,30 @@ public class ArenaManager : NetworkBehaviour
         base.FixedUpdateNetwork();
         if (timer.Expired(Runner))
         {
-            DecayArena();
+            if (CircleCount < Circles.Length)
+            {
+                DecayArena((CircleCount));
+                CircleCount++;
+            }
 
             timer = TickTimer.None;
+            timer = TickTimer.CreateFromSeconds(Runner, 10f);
         }
     }
 
-    private void DecayArena()
+    private void InitCircles()
     {
-        foreach (GameObject obj in Circle0)
+        Circles = new GameObject[5][];
+        Circles[0] = Circle0;
+        Circles[1] = Circle1;
+        Circles[2] = Circle2;
+        Circles[3] = Circle4;
+        Circles[4] = Circle3;
+    }
+
+    private void DecayArena(int index)
+    {
+        foreach (GameObject obj in Circles[index])
         {
             StartCoroutine(MoveObjectDown(obj));
         }
@@ -40,7 +64,6 @@ public class ArenaManager : NetworkBehaviour
 
         while (objPosition.y > targetPosition.y)
         {
-            Debug.Log("I'm in the While");
             obj.transform.position = Vector3.MoveTowards(objPosition, targetPosition, speed * Runner.DeltaTime);
 
             objPosition = obj.transform.position;
