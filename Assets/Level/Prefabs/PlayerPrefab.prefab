@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _camera: {fileID: 3198787937485706482, guid: 393147b91fb2df34e89c1f2fdf033989, type: 3}
   _movementSpeed: 10
 --- !u!114 &8112882960527840160
 MonoBehaviour:

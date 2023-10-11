@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    [SerializeField] private Transform[] _spawnPositions;
-
-    [SerializeField] private NetworkPrefabRef _playerPrefab;
     public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+
+    [SerializeField] private Transform[] _spawnPositions;
+    [SerializeField] private NetworkPrefabRef _playerPrefab;
     private int _spawnCount = 0;
+    private int[] _spawnRotations = { -90, 90, 0, -180, -45, 45, -135, 135 };
 
     public override void Spawned()
     {
@@ -21,12 +22,16 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            Vector3 spawnPosition = _spawnPositions[_spawnCount++].position;
-            Quaternion rotation = Quaternion.Euler(0, -90, 0);
+            Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
+            Quaternion rotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
+
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+
             networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);
 
             _spawnedCharacters.Add(player, networkPlayerObject);
+
+            _spawnCount++;
         }
     }
 
