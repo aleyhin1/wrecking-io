@@ -9,16 +9,12 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 {
     public static GameManager Instance { get; private set; }
     public static GameState State { get; private set; }
-    public static StartGameScript StartGameScript { get; private set; }
     public static CameraManager CameraManager { get; private set; }
     public static ArenaManager ArenaManager { get; private set; }
 
-    public GameObject PreRoomCube;
     public GameObject DeathScreen;
     public GameObject PreGameScreen;
     public NetworkDebugStart Starter;
-    public GameSettings Settings { get; set; } = GameSettings.Default;
-
 
     private void Awake()
     {
@@ -26,7 +22,6 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         {
             Instance = this;
             State = GetComponent<GameState>();
-            StartGameScript = GetComponent<StartGameScript>();
             CameraManager = GetComponent<CameraManager>();
             ArenaManager = GetComponent<ArenaManager>();
         }
@@ -41,7 +36,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 
         if (Runner.IsServer)
         {
-            State.Server_SetState(EGameState.Pregame);
+            State.Server_SetState(EGameState.Off);
         }
 
         Runner.AddCallbacks(this);
@@ -60,12 +55,19 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         State.Server_SetState(EGameState.Play);
     }
 
+    void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    {
+        if (runner.IsServer)
+        {
+            State.Server_SetState(EGameState.Pregame);
+        }
+    }
+
     #region NetworkRunnerCallbacks
-    void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
     void INetworkRunnerCallbacks.OnDisconnectedFromServer(NetworkRunner runner) { }
-    void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player) { }
+    void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input) { }
     void INetworkRunnerCallbacks.OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }

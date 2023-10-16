@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
+    public Dictionary<PlayerRef, NetworkObject> SpawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
@@ -29,10 +29,18 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
             networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);
 
-            _spawnedCharacters.Add(player, networkPlayerObject);
+            SpawnedCharacters.Add(player, networkPlayerObject);
 
             _spawnCount++;
+
+            //ActivatePlayerCamera(networkPlayerObject);
         }
+    }
+
+    private void ActivatePlayerCamera(NetworkObject networkPlayerObject)
+    {
+        var playerCamera = networkPlayerObject.gameObject.GetComponentInChildren<Camera>(includeInactive: true);
+        playerCamera.gameObject.SetActive(true);
     }
 
     #region NetworkRunnerCallbacks

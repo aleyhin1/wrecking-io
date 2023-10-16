@@ -1,12 +1,13 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameState : NetworkBehaviour
 {
-    public enum EGameState { Pregame, Play, Death, Postgame}
+    public enum EGameState {Off, Pregame, Play, Death, Postgame}
     [Networked] public EGameState Previous { get; set; }
     [Networked] public EGameState Current { get; set; }
 
@@ -21,20 +22,13 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Play].onEnter = state =>
         {
-            if (Runner.IsServer)
-            {
-                GameManager.StartGameScript.RPC_StartGame();
-            }
-
-            GameManager.CameraManager.SwitchCamera(GameManager.CameraManager.PreRoomCamera, GameManager.CameraManager.ArenaCamera);
+            GameManager.CameraManager.SwitchCameraToArena();
             GameManager.Instance.PreGameScreen.SetActive(false);
             GameManager.ArenaManager.enabled = true;
-            GameManager.Instance.PreRoomCube.SetActive(false);
         };
 
         StateMachine[EGameState.Death].onEnter = state =>
         {
-            //GameManager.CameraManager.SwitchCamera(GameManager.CameraManager.ArenaCamera, GameManager.CameraManager.SpectatorCamera);
             GameManager.Instance.DeathScreen.SetActive(true);
         };
     }

@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    public static PlayerMovement Instance { get; private set; }
+
     [SerializeField] private float _movementSpeed = 20;
     private Rigidbody _rigidBody;
 
     public override void Spawned()
     {
         base.Spawned();
+        Instance = this;
         _rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -27,7 +30,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
 
-        // Zero check to prevent rb to snap back to zero rotation
+        // Zero check to prevent rb to snap back to zero rotation.
         if (rotationAngle != 0)
             _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
     }
