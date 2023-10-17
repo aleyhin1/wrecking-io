@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 115447912}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 27, z: -6}
+  m_LocalPosition: {x: 0, y: 7, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1523,7 +1523,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -198543897188813814, guid: 4fefc4c32e76bb9499a577f32819d5b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19999999
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -198543897188813814, guid: 4fefc4c32e76bb9499a577f32819d5b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: -180522719696759559, guid: 4fefc4c32e76bb9499a577f32819d5b2, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2166,7 +2170,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -2806,7 +2810,7 @@ Transform:
   m_GameObject: {fileID: 460553420}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 27, z: 4}
+  m_LocalPosition: {x: -4, y: 7, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3023,7 +3027,7 @@ Transform:
   m_GameObject: {fileID: 548267240}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6, y: 27, z: 0}
+  m_LocalPosition: {x: 6, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3442,7 +3446,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -4793,7 +4797,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -4880,7 +4884,7 @@ Transform:
   m_GameObject: {fileID: 787351821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 27, z: 0}
+  m_LocalPosition: {x: -6, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4964,7 +4968,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -6389,7 +6393,7 @@ Transform:
   m_GameObject: {fileID: 1161799585}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 27, z: -4}
+  m_LocalPosition: {x: -4, y: 7, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8177,7 +8181,7 @@ Transform:
   m_GameObject: {fileID: 1434580961}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 27, z: -4}
+  m_LocalPosition: {x: 4, y: 7, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8570,7 +8574,7 @@ Transform:
   m_GameObject: {fileID: 1530666505}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 27, z: 6}
+  m_LocalPosition: {x: 0, y: 7, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8926,7 +8930,7 @@ Transform:
   m_GameObject: {fileID: 1661380704}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 27, z: 4}
+  m_LocalPosition: {x: 4, y: 7, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9005,6 +9009,7 @@ MonoBehaviour:
   DeathScreen: {fileID: 582245872}
   PreGameScreen: {fileID: 52364553}
   Starter: {fileID: 114354465}
+  Joystick: {fileID: 2101550678}
 --- !u!114 &1716129571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10311,7 +10316,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -10942,7 +10947,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 55
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 64

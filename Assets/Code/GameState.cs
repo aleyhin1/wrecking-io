@@ -22,9 +22,9 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Play].onEnter = state =>
         {
-            GameManager.CameraManager.SwitchCameraToArena();
             GameManager.Instance.PreGameScreen.SetActive(false);
             GameManager.ArenaManager.enabled = true;
+            GameManager.Instance.Joystick.SetActive(true);
         };
 
         StateMachine[EGameState.Death].onEnter = state =>

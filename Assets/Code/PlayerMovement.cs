@@ -1,4 +1,5 @@
 using Fusion;
+using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     public static PlayerMovement Instance { get; private set; }
+
+    private KCC _kcc;
 
     [SerializeField] private float _movementSpeed = 20;
     private Rigidbody _rigidBody;
@@ -15,6 +18,7 @@ public class PlayerMovement : NetworkBehaviour
         base.Spawned();
         Instance = this;
         _rigidBody = GetComponent<Rigidbody>();
+        _kcc = GetComponent<KCC>();
     }
 
     public override void FixedUpdateNetwork()
@@ -37,7 +41,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        _rigidBody.position += GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime;
+        //_rigidBody.position += GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime;
+        _kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)

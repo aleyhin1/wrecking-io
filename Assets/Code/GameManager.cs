@@ -15,6 +15,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public GameObject DeathScreen;
     public GameObject PreGameScreen;
     public NetworkDebugStart Starter;
+    public GameObject Joystick;
 
     private void Awake()
     {
