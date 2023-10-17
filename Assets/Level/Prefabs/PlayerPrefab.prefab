@@ -232,14 +232,14 @@ MonoBehaviour:
   _settings:
     Shape: 1
     IsTrigger: 0
-    Radius: 0.35
-    Height: 1.8
+    Radius: 2
+    Height: 4
     Extent: 0.035
     Mass: 1
     ColliderLayer: 0
     CollisionLayerMask:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 65
     RenderBehavior: 1
     Features: -1
     SuppressConvexMeshColliders: 0
@@ -257,6 +257,7 @@ MonoBehaviour:
     ForceSingleOverlapQuery: 0
     Processors:
     - {fileID: 6733955975318150615, guid: 0b1fae6ab34a6e0478cb92d6e1a62e44, type: 3}
+    - {fileID: -3592675505127058418, guid: 93e6d39666b21fe4ea884554d8526c00, type: 3}
     PositionAccuracy:
       _value: 0
       _inverse: 0

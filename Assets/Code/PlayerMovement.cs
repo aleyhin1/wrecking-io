@@ -11,13 +11,11 @@ public class PlayerMovement : NetworkBehaviour
     private KCC _kcc;
 
     [SerializeField] private float _movementSpeed = 20;
-    private Rigidbody _rigidBody;
 
     public override void Spawned()
     {
         base.Spawned();
         Instance = this;
-        _rigidBody = GetComponent<Rigidbody>();
         _kcc = GetComponent<KCC>();
     }
 
@@ -25,7 +23,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (GetInput<NetworkInputData>(out var input))
         {
-            Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+           Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
            Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
         }
     }
@@ -36,12 +34,13 @@ public class PlayerMovement : NetworkBehaviour
 
         // Zero check to prevent rb to snap back to zero rotation.
         if (rotationAngle != 0)
-            _rigidBody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f);
+        {
+            _kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f));
+        }
     }
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        //_rigidBody.position += GetMovementDirection(backgroundPos, handlePos) * _movementSpeed * Runner.DeltaTime;
         _kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
     }
 
