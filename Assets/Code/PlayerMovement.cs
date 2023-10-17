@@ -8,15 +8,16 @@ public class PlayerMovement : NetworkBehaviour
 {
     public static PlayerMovement Instance { get; private set; }
 
-    private KCC _kcc;
-
-    [SerializeField] private float _movementSpeed = 20;
+    public KCC Kcc { get; private set; }
 
     public override void Spawned()
     {
         base.Spawned();
-        Instance = this;
-        _kcc = GetComponent<KCC>();
+        if ( gameObject.GetComponent<NetworkObject>().HasInputAuthority)
+        {
+            Instance = this;
+        }
+        Kcc = GetComponent<KCC>();
     }
 
     public override void FixedUpdateNetwork()
@@ -35,13 +36,13 @@ public class PlayerMovement : NetworkBehaviour
         // Zero check to prevent rb to snap back to zero rotation.
         if (rotationAngle != 0)
         {
-            _kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f));
+            Kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f));
         }
     }
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        _kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
+        Kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)

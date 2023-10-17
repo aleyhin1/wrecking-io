@@ -282,7 +282,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  _movementSpeed: 20
 --- !u!1 &6581020751115810695
 GameObject:
   m_ObjectHideFlags: 0
