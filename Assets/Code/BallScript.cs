@@ -17,8 +17,17 @@ public class BallScript : NetworkBehaviour
     {
         Vector3 playerPosition = PlayerMovement.Instance.Kcc.Data.BasePosition;
         Quaternion rotation = PlayerMovement.Instance.Kcc.Data.LookRotation;
-        Vector3 position = playerPosition + new Vector3 (-10 * Mathf.Cos (rotation.eulerAngles.y * Mathf.Deg2Rad),0, 10 * Mathf.Sin (rotation.eulerAngles.y * Mathf.Deg2Rad));
-        _rigidbody.Move(Vector3.Lerp(transform.position, position, .2f), Quaternion.Lerp(transform.rotation, rotation, .2f));
+        Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
+
+        if (_rigidbody != null)
+        {
+            _rigidbody.Move(Vector3.Lerp(transform.position, position, .2f), Quaternion.Lerp(transform.rotation, rotation, .2f));
+        }
+    }
+
+    private Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
+    {
+        return new Vector3(-distance * Mathf.Cos(rotation.eulerAngles.y * Mathf.Deg2Rad), 0, distance * Mathf.Sin(rotation.eulerAngles.y * Mathf.Deg2Rad));
     }
 
     //private void OnCollisionEnter(Collision collision)

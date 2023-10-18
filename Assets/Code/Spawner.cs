@@ -9,6 +9,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
+    [SerializeField] private NetworkPrefabRef _ballPrefab;
     private int _spawnCount = 0;
     private int[] _spawnRotations = { -90, 90, 0, -180, -45, 45, -135, 135 };
 
@@ -26,6 +27,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
             Quaternion rotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
 
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+            runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
 
             networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);
 
