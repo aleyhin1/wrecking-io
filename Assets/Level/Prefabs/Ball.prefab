@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6977587904179883412}
   - component: {fileID: 6787492294298276810}
-  - component: {fileID: 946002961529694322}
   - component: {fileID: -12696527985410706}
   - component: {fileID: 5860578858258525611}
   - component: {fileID: 7415831994743327361}
+  - component: {fileID: 946002961529694322}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6144811881722289256}
-  m_Material: {fileID: 13400000, guid: 8f6dae4109f11254ea5eb05fedc963e7, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -58,19 +58,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &946002961529694322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6144811881722289256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff1c5e5eff72ae43b397857b4353abc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
 --- !u!114 &-12696527985410706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,8 +80,8 @@ MonoBehaviour:
     RawGuidValue: 26e26042a38380c499ee37629c8e9cab
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 946002961529694322}
   - {fileID: 7415831994743327361}
+  - {fileID: 946002961529694322}
   SimulationBehaviours: []
 --- !u!54 &5860578858258525611
 Rigidbody:
@@ -151,6 +138,19 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
   TargetInterpolationDelay: 0.03
+--- !u!114 &946002961529694322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144811881722289256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff1c5e5eff72ae43b397857b4353abc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
 --- !u!1 &6384156740209879220
 GameObject:
   m_ObjectHideFlags: 0

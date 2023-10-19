@@ -76,8 +76,8 @@ MonoBehaviour:
   _proportionalKinematicAcceleration: 0
   _constantKinematicFriction: 0
   _relativeKinematicFriction: 0
-  _proportionalKinematicFriction: 35
-  _proportionalDynamicFriction: 20
+  _proportionalKinematicFriction: 4
+  _proportionalDynamicFriction: 4
   _clearDynamicVelocityOnTouch: 0
   _inputResponsivity: 1
   _maxGroundAngle: 64

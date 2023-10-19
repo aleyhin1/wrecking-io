@@ -1,12 +1,14 @@
 using Fusion;
+using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallScript : NetworkBehaviour
+public class BallMovement : NetworkBehaviour
 {
     private Rigidbody _rigidbody;
-    private NetworkRigidbody _networkRigidbody;
+    public Vector3 pseudoVelocity;
+    private Vector3 lastFramePosition;
 
     private void Start()
     {
@@ -23,24 +25,20 @@ public class BallScript : NetworkBehaviour
         {
             _rigidbody.Move(Vector3.Lerp(transform.position, position, .2f), Quaternion.Lerp(transform.rotation, rotation, .2f));
         }
+        SetPseudoVelocity();
+    }
+
+    private void SetPseudoVelocity()
+    {
+        if (lastFramePosition != null)
+        {
+            pseudoVelocity = (transform.position - lastFramePosition) / Runner.DeltaTime;
+        }
+        lastFramePosition = transform.position;
     }
 
     private Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
     {
         return new Vector3(-distance * Mathf.Cos(rotation.eulerAngles.y * Mathf.Deg2Rad), 0, distance * Mathf.Sin(rotation.eulerAngles.y * Mathf.Deg2Rad));
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.rigidbody != null)
-    //    {
-    //        Vector3 velocity = _rigidBody.velocity;
-    //        if (velocity != Vector3.zero)
-    //        {
-    //            collision.rigidbody.AddForceAtPosition(velocity, collision.GetContact(0).point, ForceMode.Impulse);
-    //            Debug.Log(collision.relativeVelocity);
-    //        }
-
-    //    }
-    //}
 }
