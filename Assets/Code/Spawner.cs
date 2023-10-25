@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public Dictionary<PlayerRef, NetworkObject> SpawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
@@ -33,8 +31,8 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
             networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);
             networkBallObject.GetComponent<BallMovement>().targetCarObject = networkPlayerObject;
 
-            SpawnedCharacters.Add(player, networkPlayerObject);
             Runner.SetPlayerObject(player, networkPlayerObject);
+            networkPlayerObject.GetComponent<PlayerDataScript>().PlayerBall = networkBallObject.gameObject;
 
             _spawnCount++;
             

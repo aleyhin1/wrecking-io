@@ -1,28 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ColorPanel : MonoBehaviour
 {
-    private int _index = 0;
+    public TextMeshProUGUI CarColorText;
+    public TextMeshProUGUI PlayerColorText;
 
+    private int _carColorIndex = 0;
+    private int _playerColorIndex = 0;
 
-    public void ChangeColorRight()
+    public void ChangeCarColorRight()
     {
-        _index++;
-        _index = _index % ColorChanger.Instance.CarMaterials.Length;
+        _carColorIndex++;
 
-        ColorChanger.Instance.RPC_ChangeCarColor(_index);
+        ChangeCarColor();
     }
 
-    public void ChangeColorLeft()
+    public void ChangeCarColorLeft()
     {
-        if (_index > 0)
-        {
-            _index--;
-            _index = _index % ColorChanger.Instance.CarMaterials.Length;
+        _carColorIndex--;
 
-            ColorChanger.Instance.RPC_ChangeCarColor(_index);
-        }
+        ChangeCarColor();
+    }
+
+    private void ChangeCarColor()
+    {
+        _carColorIndex += CarColorChanger.Instance.CarMaterials.Length;
+        _carColorIndex = _carColorIndex % CarColorChanger.Instance.CarMaterials.Length;
+        CarColorChanger.Instance.RPC_ChangeCarColor(_carColorIndex);
+        CarColorText.text = CarColorChanger.Instance.CarMaterials[_carColorIndex].name;
+    }
+
+    public void ChangePlayerColorRight()
+    {
+        _playerColorIndex++;
+
+        ChangePlayerColor();
+    }
+
+    public void ChangePlayerColorLeft()
+    {
+        _playerColorIndex--;
+
+        ChangePlayerColor();
+    }
+
+    private void ChangePlayerColor()
+    {
+        _playerColorIndex += CarColorChanger.Instance.PlayerMaterials.Length;
+        _playerColorIndex = _playerColorIndex % CarColorChanger.Instance.PlayerMaterials.Length;
+        CarColorChanger.Instance.RPC_ChangePlayerColor(_playerColorIndex);
+        PlayerColorText.text = CarColorChanger.Instance.PlayerMaterials[_playerColorIndex].name;
     }
 }

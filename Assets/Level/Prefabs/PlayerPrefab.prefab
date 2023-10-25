@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 5116190552830399348}
   - component: {fileID: 8101290138390454094}
   - component: {fileID: -9038154864898921015}
+  - component: {fileID: 7809397310105069519}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -192,7 +193,23 @@ MonoBehaviour:
   - {fileID: 4651892251937420344}
   CarMaterials:
   - {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
+  - {fileID: 2100000, guid: b5be7d875b40029418e800e018e433c9, type: 2}
+  - {fileID: 2100000, guid: f7bf834ead5d74c40b0ee662d04076ff, type: 2}
+  - {fileID: 2100000, guid: 6415e7ce7a5c0e44085c0ad155f155d0, type: 2}
+  - {fileID: 2100000, guid: 266b54c08fb499a4c9ec4e4f0c323e1f, type: 2}
+  - {fileID: 2100000, guid: 2539751b4aa49fe408bc3fb9a79f74ab, type: 2}
+  - {fileID: 2100000, guid: b159d1a3c226bac4b9cedcf48000add7, type: 2}
+  - {fileID: 2100000, guid: f0e1648bd1515a84c9bdf307921e2daa, type: 2}
   - {fileID: 2100000, guid: 84073868574a8cc489894b185bca3082, type: 2}
+  PlayerRenderer: {fileID: 6393026147927778440}
+  PlayerMaterials:
+  - {fileID: 2100000, guid: 7ecf13b9a2a433a4f941fd27becba381, type: 2}
+  - {fileID: 2100000, guid: 1a03c1fc84d71474d852b94cabf1ebc0, type: 2}
+  - {fileID: 2100000, guid: df8c9d0c76e7e1045ac2e684db45487d, type: 2}
+  - {fileID: 2100000, guid: e8e76f01f2a86cd4c8803a557311dbe0, type: 2}
+  - {fileID: 2100000, guid: 1afca6e739531ad49b7499768c2212eb, type: 2}
+  - {fileID: 2100000, guid: 3b69816c30bd50c4e908faeee8cfb588, type: 2}
+  - {fileID: 2100000, guid: 989b0eb366942ef4aabe2bf2f9e3b06f, type: 2}
 --- !u!54 &4969454518664745353
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -299,6 +316,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+--- !u!114 &7809397310105069519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845435756931648834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a65e11aa47573db4fa7c25e45d500393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerBall: {fileID: 0}
 --- !u!1 &6581020751115810695
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,10 +409,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 549543054783192048, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7ecf13b9a2a433a4f941fd27becba381, type: 2}
+    - target: {fileID: 549543054783192048, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7ecf13b9a2a433a4f941fd27becba381, type: 2}
     - target: {fileID: 919132149155446097, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
       propertyPath: m_Name
       value: MainCarAndCharacterWithWheelAnim
       objectReference: {fileID: 0}
+    - target: {fileID: 2276039977613216576, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
+    - target: {fileID: 5689214077219933787, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
+    - target: {fileID: 8424073627695423409, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 11fac437cd8f87b46ad8d850aba27c1d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -406,5 +460,10 @@ MeshRenderer:
 --- !u!4 &6382287225670539411 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
+  m_PrefabInstance: {fileID: 6852447936922943352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6393026147927778440 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 549543054783192048, guid: 9730f2cc2619e7f4f9e3eeed965f99ba, type: 3}
   m_PrefabInstance: {fileID: 6852447936922943352}
   m_PrefabAsset: {fileID: 0}
