@@ -6,17 +6,11 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    public static PlayerMovement Instance { get; private set; }
-
     public KCC Kcc { get; private set; }
 
     public override void Spawned()
     {
         base.Spawned();
-        if ( gameObject.GetComponent<NetworkObject>().HasInputAuthority)
-        {
-            Instance = this;
-        }
         Kcc = GetComponent<KCC>();
     }
 

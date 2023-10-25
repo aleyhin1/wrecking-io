@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 4570757325875673193}
   - component: {fileID: 7976336617494391607}
   - component: {fileID: 7901682596658987416}
-  - component: {fileID: 3035925322811857469}
+  - component: {fileID: 5740359730802423252}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4570757325875673193
 Transform:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2908691598145916360}
   m_Enabled: 1
---- !u!114 &3035925322811857469
+--- !u!114 &5740359730802423252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fdd04d816396d4995e2f097b3f4cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
 --- !u!1 &3845435756931648834
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +171,7 @@ MonoBehaviour:
   - {fileID: 5116190552830399348}
   - {fileID: 8101290138390454094}
   - {fileID: -9038154864898921015}
+  - {fileID: 5740359730802423252}
   SimulationBehaviours: []
 --- !u!114 &-2712030796061428653
 MonoBehaviour:

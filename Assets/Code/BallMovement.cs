@@ -6,19 +6,25 @@ using UnityEngine;
 
 public class BallMovement : NetworkBehaviour
 {
-    private Rigidbody _rigidbody;
+    public NetworkObject targetCarObject;
     public Vector3 pseudoVelocity;
-    private Vector3 lastFramePosition;
+
+    private Rigidbody _rigidbody;
+    private Vector3 _lastFramePosition;
+    private KCC _carKcc;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _carKcc = targetCarObject.GetComponent<KCC>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        Vector3 playerPosition = PlayerMovement.Instance.Kcc.Data.BasePosition;
-        Quaternion rotation = PlayerMovement.Instance.Kcc.Data.LookRotation;
+        if (_carKcc == null) return;
+
+        Vector3 playerPosition = _carKcc.Data.BasePosition;
+        Quaternion rotation = _carKcc.Data.LookRotation;
         Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
 
         if (_rigidbody != null)
@@ -30,11 +36,11 @@ public class BallMovement : NetworkBehaviour
 
     private void SetPseudoVelocity()
     {
-        if (lastFramePosition != null)
+        if (_lastFramePosition != null)
         {
-            pseudoVelocity = (transform.position - lastFramePosition) / Runner.DeltaTime;
+            pseudoVelocity = (transform.position - _lastFramePosition) / Runner.DeltaTime;
         }
-        lastFramePosition = transform.position;
+        _lastFramePosition = transform.position;
     }
 
     private Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
