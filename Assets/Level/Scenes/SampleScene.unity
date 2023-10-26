@@ -2159,7 +2159,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 660322352}
         m_TargetAssemblyTypeName: ColorPanel, Assembly-CSharp
-        m_MethodName: ChangeColorLeft
+        m_MethodName: ChangeBallColorLeft
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4613,6 +4613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CarColorText: {fileID: 1545115176}
   PlayerColorText: {fileID: 851066043}
+  BallColorText: {fileID: 1089081520}
 --- !u!1 &675841457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4750478904832330665, guid: 4fefc4c32e76bb9499a577f32819d5b2, type: 3}
@@ -6225,7 +6226,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player Color
+  m_text: Ball Color
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4cc94204b8a5cb84380e9ca6fb15f0e9, type: 2}
   m_sharedMaterial: {fileID: 8637720129528313503, guid: 4cc94204b8a5cb84380e9ca6fb15f0e9, type: 2}
@@ -6594,7 +6595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Black Metallic
+  m_text: Sky
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4cc94204b8a5cb84380e9ca6fb15f0e9, type: 2}
   m_sharedMaterial: {fileID: 8637720129528313503, guid: 4cc94204b8a5cb84380e9ca6fb15f0e9, type: 2}
@@ -11200,7 +11201,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 660322352}
         m_TargetAssemblyTypeName: ColorPanel, Assembly-CSharp
-        m_MethodName: ChangeColorRight
+        m_MethodName: ChangeBallColorRight
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
