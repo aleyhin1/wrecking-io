@@ -17,7 +17,9 @@ public class GameState : NetworkBehaviour
     {
         StateMachine[EGameState.Pregame].onEnter = state =>
         {
-
+            GameManager.CameraManager.MenuCamera.gameObject.SetActive(false);
+            GameManager.UIManager.MainMenuScreen.gameObject.SetActive(false);
+            GameManager.UIManager.PreGameScreen.gameObject.SetActive(true);
         };
 
         StateMachine[EGameState.Play].onEnter = state =>

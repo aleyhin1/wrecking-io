@@ -1,7 +1,9 @@
 using Fusion;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Security;
+using TMPro;
 using UnityEngine;
 using static GameState;
 
@@ -11,6 +13,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public static GameState State { get; private set; }
     public static CameraManager CameraManager { get; private set; }
     public static ArenaManager ArenaManager { get; private set; }
+    public static UIManager UIManager { get; private set; }
 
     public GameObject DeathScreen;
     public GameObject PreGameScreen;
@@ -25,6 +28,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
             State = GetComponent<GameState>();
             CameraManager = GetComponent<CameraManager>();
             ArenaManager = GetComponent<ArenaManager>();
+            UIManager = GetComponent<UIManager>();
         }
         else
         {
@@ -35,11 +39,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     {
         base.Spawned();
 
-        if (Runner.IsServer)
-        {
-            State.Server_SetState(EGameState.Off);
-        }
-
+        State.Server_SetState(EGameState.Off);
         Runner.AddCallbacks(this);
     }
 
@@ -62,6 +62,12 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         {
             State.Server_SetState(EGameState.Pregame);
         }
+    }
+
+    public void SetReadyStatus()
+    {
+        NetworkObject playerObject = Runner.GetPlayerObject(Runner.LocalPlayer);
+        playerObject.GetComponent<PlayerDataScript>().isReady = UIManager.ReadyToggle.isOn;
     }
 
     #region NetworkRunnerCallbacks
