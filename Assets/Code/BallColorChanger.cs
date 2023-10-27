@@ -18,8 +18,8 @@ public class BallColorChanger : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             Instance = this;
-            _activeBallModel = BallModels[0];
         }
+        _activeBallModel = BallModels[0];
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]

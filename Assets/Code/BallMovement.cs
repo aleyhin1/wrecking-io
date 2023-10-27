@@ -6,32 +6,30 @@ using UnityEngine;
 
 public class BallMovement : NetworkBehaviour
 {
-    public NetworkObject targetCarObject;
+    [Networked] public PlayerRef TargetPlayer { get; set; }
     public Vector3 pseudoVelocity;
+    private KCC _carKcc;
 
     private Rigidbody _rigidbody;
     private Vector3 _lastFramePosition;
-    private KCC _carKcc;
 
-    private void Start()
+    public override void Spawned()
     {
+        base.Spawned();
         _rigidbody = GetComponent<Rigidbody>();
-        _carKcc = targetCarObject.GetComponent<KCC>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (_carKcc == null) return;
-
-        Vector3 playerPosition = _carKcc.Data.BasePosition;
-        Quaternion rotation = _carKcc.Data.LookRotation;
-        Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
-
-        if (_rigidbody != null)
+        if (_carKcc != null)
         {
+            Vector3 playerPosition = _carKcc.Data.BasePosition;
+            Quaternion rotation = _carKcc.Data.LookRotation;
+            Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
+
             _rigidbody.Move(Vector3.Lerp(transform.position, position, .2f), Quaternion.Lerp(transform.rotation, rotation, .2f));
+            SetPseudoVelocity();
         }
-        SetPseudoVelocity();
     }
 
     private void SetPseudoVelocity()
@@ -43,7 +41,7 @@ public class BallMovement : NetworkBehaviour
         _lastFramePosition = transform.position;
     }
 
-    private Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
+    public Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
     {
         return new Vector3(-distance * Mathf.Cos(rotation.eulerAngles.y * Mathf.Deg2Rad), 0, distance * Mathf.Sin(rotation.eulerAngles.y * Mathf.Deg2Rad));
     }

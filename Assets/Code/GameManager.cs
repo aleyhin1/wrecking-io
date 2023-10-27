@@ -2,8 +2,6 @@ using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Security;
-using TMPro;
 using UnityEngine;
 using static GameState;
 
@@ -19,6 +17,8 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public GameObject PreGameScreen;
     public NetworkDebugStart Starter;
     public GameObject Joystick;
+
+    [Networked] public int ReadyPlayerCount { get; private set; }
 
     private void Awake()
     {
@@ -64,10 +64,17 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    public void SetReadyStatus()
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_SetReadyStatus()
     {
-        NetworkObject playerObject = Runner.GetPlayerObject(Runner.LocalPlayer);
-        playerObject.GetComponent<PlayerDataScript>().isReady = UIManager.ReadyToggle.isOn;
+        if(UIManager.ReadyToggle.isOn)
+        {
+            ReadyPlayerCount++;
+        }
+        else
+        {
+            ReadyPlayerCount--;
+        }
     }
 
     #region NetworkRunnerCallbacks

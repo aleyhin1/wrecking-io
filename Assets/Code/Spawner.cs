@@ -1,4 +1,5 @@
 using Fusion;
+using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,33 +24,47 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
-            Quaternion rotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
+            Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
 
             NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
-            NetworkObject networkBallObject = runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
-
-            networkPlayerObject.GetComponent<Rigidbody>().MoveRotation(rotation);
-            networkBallObject.GetComponent<BallMovement>().targetCarObject = networkPlayerObject;
 
             Runner.SetPlayerObject(player, networkPlayerObject);
-            networkPlayerObject.GetComponent<PlayerDataScript>().PlayerBall = networkBallObject.gameObject;
+            SetCarPositionAndRotation(networkPlayerObject, spawnPosition, spawnRotation);
+
+            NetworkObject networkBallObject = runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
+            InitBall(networkBallObject, player, spawnPosition, spawnRotation);
 
             _spawnCount++;
-            
         }
 
-        ActivatePlayerCamera(player);
+        if (Runner.LocalPlayer == player)
+        {
+            ActivatePlayerCamera();
+        }
+    }
+
+    private void SetCarPositionAndRotation(NetworkObject playerCar, Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        KCC playerCarKcc = playerCar.GetComponent<KCC>();
+
+        playerCarKcc.SetPosition(spawnPosition);
+        playerCarKcc.SetLookRotation(spawnRotation);
+    }
+
+    private void InitBall(NetworkObject ballObject, PlayerRef player, Vector3 spawnPosition, Quaternion spawnRotation)
+    {
+        BallMovement ballMovementScript = ballObject.GetComponent<BallMovement>();
+
+        ballMovementScript.TargetPlayer = player;
+
+        Vector3 ballOffset = ballMovementScript.GetOffsetWorldVector(10, spawnRotation);
+        ballObject.GetComponent<Rigidbody>().Move(spawnPosition + ballOffset, Quaternion.identity);
     }
 
 
-    private void ActivatePlayerCamera(PlayerRef playerRef)
+    private void ActivatePlayerCamera()
     {
-        if (Runner.LocalPlayer != playerRef)
-        {
-            return;
-        }
-
-        Runner.TryGetPlayerObject(playerRef, out NetworkObject networkPlayerObject);
+        Runner.TryGetPlayerObject(Runner.LocalPlayer, out NetworkObject networkPlayerObject);
         var playerCamera = networkPlayerObject.gameObject.GetComponentInChildren<Camera>(includeInactive: true);
         playerCamera.gameObject.SetActive(true);
     }
