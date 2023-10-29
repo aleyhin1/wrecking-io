@@ -49,10 +49,13 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         Starter.Shutdown();
     }
 
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_StartArena()
+
+    public void StartGame()
     {
-        State.Server_SetState(EGameState.Play);
+        if (Runner.IsServer)
+        {
+            State.Server_SetState(EGameState.Play);
+        }
     }
 
     void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
