@@ -1,8 +1,9 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathScript : MonoBehaviour
+public class DeathScript : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -11,8 +12,11 @@ public class DeathScript : MonoBehaviour
             GameObject carObject = other.transform.parent.gameObject;
             carObject.SetActive(false);
 
-            GameManager.CameraManager.ActivateDeathCamera();
-            GameManager.UIManager.DeathScreen.SetActive(true);
+            if (carObject.GetComponent<NetworkObject>().HasInputAuthority)
+            {
+                GameManager.CameraManager.DeathCamera.gameObject.SetActive(true);
+                GameManager.UIManager.DeathScreen.SetActive(true);
+            }
         }
     }
 }

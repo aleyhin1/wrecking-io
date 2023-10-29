@@ -106,6 +106,11 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         return BallObjects;
     }
 
+    public void ExitGame()
+    {
+        Runner.Shutdown();
+    }
+
     #region NetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
