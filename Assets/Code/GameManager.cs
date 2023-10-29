@@ -97,7 +97,6 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         {
             BallMovement ballMovementScript = ball.GetComponent<BallMovement>();
             ballMovementScript.BindCarKcc();
-            Debug.Log(ballMovementScript.TargetPlayer);
         }
     }
 

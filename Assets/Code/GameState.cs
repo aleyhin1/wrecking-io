@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class GameState : NetworkBehaviour
 {
-    public enum EGameState {Off, Pregame, Play, Death, Postgame}
+    public enum EGameState {Off, Pregame, Play, Postgame}
     [Networked] public EGameState Previous { get; set; } = EGameState.Off;
     [Networked] public EGameState Current { get; set; }
 
@@ -54,11 +54,6 @@ public class GameState : NetworkBehaviour
             GameManager.Instance.PreGameScreen.SetActive(false);
             GameManager.ArenaManager.enabled = true;
             GameManager.Instance.Joystick.SetActive(true);
-        };
-
-        StateMachine[EGameState.Death].onEnter = state =>
-        {
-            GameManager.Instance.DeathScreen.SetActive(true);
         };
     }
 

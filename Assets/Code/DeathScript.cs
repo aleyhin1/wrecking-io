@@ -6,10 +6,13 @@ public class DeathScript : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.name == "KCCCollider")
         {
-            other.gameObject.SetActive(false);
-            GameManager.State.Server_SetState(GameState.EGameState.Death);
+            GameObject carObject = other.transform.parent.gameObject;
+            carObject.SetActive(false);
+
+            GameManager.CameraManager.ActivateDeathCamera();
+            GameManager.UIManager.DeathScreen.SetActive(true);
         }
     }
 }

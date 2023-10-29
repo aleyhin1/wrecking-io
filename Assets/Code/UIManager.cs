@@ -11,4 +11,5 @@ public class UIManager : MonoBehaviour
     public Toggle ReadyToggle;
     public Toggle StartToggle;
     public GameObject SettingsPanel;
+    public GameObject DeathScreen;
 }
