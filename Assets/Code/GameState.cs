@@ -50,6 +50,7 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Play].onEnter = state =>
         {
+            GameManager.Instance.BindCarKcc();
             GameManager.Instance.PreGameScreen.SetActive(false);
             GameManager.ArenaManager.enabled = true;
             GameManager.Instance.Joystick.SetActive(true);

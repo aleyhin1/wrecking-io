@@ -91,6 +91,22 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
+    public void BindCarKcc()
+    {
+        foreach(GameObject ball in FindBallsOnScene())
+        {
+            BallMovement ballMovementScript = ball.GetComponent<BallMovement>();
+            ballMovementScript.BindCarKcc();
+            Debug.Log(ballMovementScript.TargetPlayer);
+        }
+    }
+
+    private GameObject[] FindBallsOnScene()
+    {
+        GameObject[] BallObjects = GameObject.FindGameObjectsWithTag("Ball");
+        return BallObjects;
+    }
+
     #region NetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }

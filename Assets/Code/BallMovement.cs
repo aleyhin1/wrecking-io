@@ -23,7 +23,7 @@ public class BallMovement : NetworkBehaviour
     {
         if (_carKcc != null)
         {
-            Vector3 playerPosition = _carKcc.Data.BasePosition;
+            Vector3 playerPosition = _carKcc.Data.TargetPosition;
             Quaternion rotation = _carKcc.Data.LookRotation;
             Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
 
@@ -44,5 +44,12 @@ public class BallMovement : NetworkBehaviour
     public Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
     {
         return new Vector3(-distance * Mathf.Cos(rotation.eulerAngles.y * Mathf.Deg2Rad), 0, distance * Mathf.Sin(rotation.eulerAngles.y * Mathf.Deg2Rad));
+    }
+
+    public void BindCarKcc()
+    {
+        NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);
+        KCC targetKcc = targetCarObject.GetComponent<KCC>();
+        _carKcc = targetKcc;
     }
 }
