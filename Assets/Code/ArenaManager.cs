@@ -12,7 +12,7 @@ public class ArenaManager : NetworkBehaviour
     public GameObject[] Circle4;
     public GameObject[] Floors;
 
-    [Networked] private TickTimer timer { get; set; }
+    private TickTimer timer;
 
     private GameObject[][] _circles;
     private int _circleCount = 0;
