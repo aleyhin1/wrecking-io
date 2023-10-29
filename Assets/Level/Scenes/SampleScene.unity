@@ -9681,7 +9681,7 @@ MonoBehaviour:
   PreGameScreen: {fileID: 52364553}
   Starter: {fileID: 114354465}
   Joystick: {fileID: 2101550678}
-  _ReadyPlayerCount: 0
+  ReadyPlayerCount: 0
 --- !u!114 &1716129571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12324,7 +12324,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1716129570}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SetReadyStatus
+        m_MethodName: SendReadyStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

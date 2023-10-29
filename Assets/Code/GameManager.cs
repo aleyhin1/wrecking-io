@@ -17,8 +17,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public GameObject PreGameScreen;
     public NetworkDebugStart Starter;
     public GameObject Joystick;
-
-    [Networked] public int ReadyPlayerCount { get; private set; }
+    public int ReadyPlayerCount = 0;
 
     private void Awake()
     {
@@ -64,10 +63,22 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    public void RPC_SetReadyStatus()
+    public void SendReadyStatus()
     {
-        if(UIManager.ReadyToggle.isOn)
+        if (UIManager.ReadyToggle.isOn)
+        {
+            RPC_SetReadyPlayerCount(true);
+        }
+        else
+        {
+            RPC_SetReadyPlayerCount(false);
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_SetReadyPlayerCount(NetworkBool readyStatus)
+    {
+        if(readyStatus)
         {
             ReadyPlayerCount++;
         }

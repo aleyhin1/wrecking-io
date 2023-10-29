@@ -33,15 +33,18 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Pregame].onUpdate = state =>
         {
-            int readyPlayers = GameManager.Instance.ReadyPlayerCount;
-            int activePlayers = Runner.ActivePlayers.Count<PlayerRef>();
-            if (readyPlayers == activePlayers -1)
+            if (HasStateAuthority)
             {
-                GameManager.UIManager.StartToggle.interactable = true;
-            }
-            else
-            {
-                GameManager.UIManager.StartToggle.interactable = false;
+                int readyPlayers = GameManager.Instance.ReadyPlayerCount;
+                int activePlayers = Runner.ActivePlayers.Count<PlayerRef>();
+                if (readyPlayers == activePlayers - 1)
+                {
+                    GameManager.UIManager.StartToggle.interactable = true;
+                }
+                else
+                {
+                    GameManager.UIManager.StartToggle.interactable = false;
+                }
             }
         };
 
