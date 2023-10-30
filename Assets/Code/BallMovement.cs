@@ -27,7 +27,7 @@ public class BallMovement : NetworkBehaviour
             Quaternion rotation = _carKcc.Data.LookRotation;
             Vector3 position = playerPosition + GetOffsetWorldVector(10, rotation);
 
-            _rigidbody.Move(Vector3.Lerp(transform.position, position, .2f), Quaternion.Lerp(transform.rotation, rotation, .2f));
+            _rigidbody.Move(position, rotation);
             SetPseudoVelocity();
         }
     }

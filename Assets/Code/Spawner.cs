@@ -39,7 +39,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
         if (Runner.LocalPlayer == player)
         {
-            ActivatePlayerCamera();
+            StartCoroutine(ActivatePlayerCamera());
         }
     }
 
@@ -62,8 +62,10 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     }
 
 
-    private void ActivatePlayerCamera()
+    private IEnumerator ActivatePlayerCamera()
     {
+        yield return new WaitForSeconds(.5f);
+
         Runner.TryGetPlayerObject(Runner.LocalPlayer, out NetworkObject networkPlayerObject);
         var playerCamera = networkPlayerObject.gameObject.GetComponentInChildren<Camera>(includeInactive: true);
         playerCamera.gameObject.SetActive(true);

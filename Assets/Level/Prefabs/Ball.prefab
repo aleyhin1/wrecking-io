@@ -57,8 +57,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Radius: 1.8
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &-12696527985410706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,10 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 2
+  _interpolationDataSource: 1
   InterpolationSpace: 0
   InterpolationTarget: {fileID: 6064716690211355751}
-  InterpolateErrorCorrection: 1
+  InterpolateErrorCorrection: 0
   InterpolatedErrorCorrectionSettings:
     MinRate: 3.3
     MaxRate: 10
@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  targetCarObject: {fileID: 0}
   pseudoVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &503609639360927827
 MonoBehaviour:
@@ -199,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 6384156740209879220}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
