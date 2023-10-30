@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
+    public Dictionary<PlayerRef, NetworkObject> BallObjects = new Dictionary<PlayerRef, NetworkObject>();
+
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
@@ -33,6 +35,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
             NetworkObject networkBallObject = runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
             InitBall(networkBallObject, player, spawnPosition, spawnRotation);
+            BallObjects.Add(player, networkBallObject);
 
             _spawnCount++;
         }
@@ -71,12 +74,23 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         playerCamera.gameObject.SetActive(true);
     }
 
+    void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    {
+        if (Runner.IsServer)
+        {
+            NetworkObject leftPlayerCar = Runner.GetPlayerObject(player);
+            BallObjects.TryGetValue(player, out NetworkObject leftBall);
+
+            Runner.Despawn(leftPlayerCar);
+            Runner.Despawn(leftBall);
+        }
+    }
+
     #region NetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner) { }
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
     void INetworkRunnerCallbacks.OnDisconnectedFromServer(NetworkRunner runner) { }
-    void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
     void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input) { }
     void INetworkRunnerCallbacks.OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     void INetworkRunnerCallbacks.OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
