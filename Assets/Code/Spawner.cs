@@ -12,6 +12,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
+    [SerializeField] private NetworkPrefabRef _botCarPrefab;
     private int _spawnCount = 0;
     private int[] _spawnRotations = { -90, 90, 0, -180, -45, 45, -135, 135 };
 
@@ -83,6 +84,20 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
             Runner.Despawn(leftPlayerCar);
             Runner.Despawn(leftBall);
+        }
+    }
+
+    public void AddBot()
+    {
+        if (Runner.IsServer)
+        {
+            Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
+            Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
+
+            NetworkObject botObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
+            SetCarPositionAndRotation(botObject, spawnPosition, spawnRotation);
+
+            _spawnCount++;
         }
     }
 
