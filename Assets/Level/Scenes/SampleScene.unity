@@ -10137,6 +10137,8 @@ MonoBehaviour:
     RawGuidValue: 26e26042a38380c499ee37629c8e9cab
   _botCarPrefab:
     RawGuidValue: 1e9d6ba3284b18c49a0229ed19edb10e
+  _botBallPrefab:
+    RawGuidValue: 00000000000000000000000000000000
 --- !u!114 &1716129574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12207,7 +12209,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1984320592}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1716129572}
+        m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+        m_MethodName: RemoveBot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1984320592
 MonoBehaviour:
   m_ObjectHideFlags: 0

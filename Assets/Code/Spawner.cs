@@ -2,19 +2,24 @@ using Fusion;
 using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
     public Dictionary<PlayerRef, NetworkObject> BallObjects = new Dictionary<PlayerRef, NetworkObject>();
+    public Stack<NetworkObject> botObjects = new Stack<NetworkObject>();
+    //public Stack<NetworkObject> botBallObjects = new Stack<NetworkObject>();
 
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
     [SerializeField] private NetworkPrefabRef _botCarPrefab;
+    //[SerializeField] private NetworkPrefabRef _botBallPrefab;
     private int _spawnCount = 0;
     private int[] _spawnRotations = { -90, 90, 0, -180, -45, 45, -135, 135 };
+
 
     public override void Spawned()
     {
@@ -91,13 +96,39 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (Runner.IsServer)
         {
-            Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
-            Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
+            int AllowedBotCount = 8 - (Runner.ActivePlayers.Count<PlayerRef>() + botObjects.Count);
+            if (AllowedBotCount > 0)
+            {
+                Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
+                Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
 
-            NetworkObject botObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
-            SetCarPositionAndRotation(botObject, spawnPosition, spawnRotation);
+                NetworkObject botObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
+                SetCarPositionAndRotation(botObject, spawnPosition, spawnRotation);
 
-            _spawnCount++;
+                //NetworkObject botBallObject = Runner.Spawn(_botBallPrefab, Vector2.zero, Quaternion.identity);
+
+                botObjects.Push(botObject);
+                //botBallObjects.Push(botBallObject);
+
+                _spawnCount++;
+            }
+        }
+    }
+
+    public void RemoveBot()
+    {
+        if (Runner.IsServer)
+        {
+            if (botObjects.Count != 0)
+            {
+                NetworkObject lastSpawnedCar = botObjects.Pop();
+                //NetworkObject lastSpawnedBall = botBallObjects.Pop();
+
+                Runner.Despawn(lastSpawnedCar);
+                //Runner.Despawn(lastSpawnedBall);
+
+                _spawnCount--;
+            }
         }
     }
 
