@@ -8,6 +8,7 @@ public class BotMovement : NetworkBehaviour
 {
     public KCC Kcc { get; private set; }
     private BotLogic _botLogic;
+    private const float turnSpeed = .1f;
     
     public override void Spawned()
     {
@@ -22,6 +23,21 @@ public class BotMovement : NetworkBehaviour
         if (_botLogic.CurrentState == BotLogic.State.Chase)
         {
             Kcc.SetInputDirection(_botLogic.MovementDirection);
+            Kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, GetRotationQuaternion(), turnSpeed));
         }
+    }
+
+    private Quaternion GetRotationQuaternion()
+    {
+        Quaternion rotationQuaternion = Quaternion.Euler(0, FindRotationAngle(), 0);
+        return rotationQuaternion;
+    }
+
+    private float FindRotationAngle()
+    {
+        Vector3 directionToLook = _botLogic.MovementDirection.normalized;
+        float rotationAngle = Mathf.Atan2(-directionToLook.z, directionToLook.x) * Mathf.Rad2Deg;
+        
+        return rotationAngle;
     }
 }
