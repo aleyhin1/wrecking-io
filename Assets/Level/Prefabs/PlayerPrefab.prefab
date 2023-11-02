@@ -256,10 +256,10 @@ MonoBehaviour:
     Height: 4
     Extent: 0.035
     Mass: 1
-    ColliderLayer: 0
+    ColliderLayer: 7
     CollisionLayerMask:
       serializedVersion: 2
-      m_Bits: 65
+      m_Bits: 193
     RenderBehavior: 1
     Features: -1
     SuppressConvexMeshColliders: 0
