@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6977587904179883412}
-  - component: {fileID: 6787492294298276810}
   - component: {fileID: -12696527985410706}
-  - component: {fileID: 5860578858258525611}
-  - component: {fileID: 7415831994743327361}
+  - component: {fileID: 5375338067508861617}
+  - component: {fileID: 4024700305923390225}
   - component: {fileID: 946002961529694322}
   - component: {fileID: 503609639360927827}
   m_Layer: 0
@@ -38,27 +37,6 @@ Transform:
   - {fileID: 6064716690211355751}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6787492294298276810
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6144811881722289256}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.8
-  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!114 &-12696527985410706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,11 +59,11 @@ MonoBehaviour:
     RawGuidValue: 26e26042a38380c499ee37629c8e9cab
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 7415831994743327361}
+  - {fileID: 4024700305923390225}
   - {fileID: 946002961529694322}
   - {fileID: 503609639360927827}
   SimulationBehaviours: []
---- !u!54 &5860578858258525611
+--- !u!54 &5375338067508861617
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,12 +85,12 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7415831994743327361
+--- !u!114 &4024700305923390225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,25 +99,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 6144811881722289256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f7684f04e649e84fb2ee1bc9fbee42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 1
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 6064716690211355751}
-  InterpolateErrorCorrection: 0
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
-  UseLegacySharedModeInterpolation: 0
-  TargetInterpolationDelay: 0.03
+  _interpolationDataSource: 0
+  _settings:
+    Shape: 1
+    IsTrigger: 0
+    Radius: 1.8
+    Height: 3.6
+    Extent: 0.035
+    Mass: 1
+    ColliderLayer: 0
+    CollisionLayerMask:
+      serializedVersion: 2
+      m_Bits: 193
+    RenderBehavior: 1
+    Features: -1
+    SuppressConvexMeshColliders: 0
+    SpawnColliderOnProxy: 1
+    AllowClientTeleports: 0
+    TeleportThreshold: 1
+    MaxMoveSteps: 1
+    CCDRadiusMultiplier: 0.75
+    AntiJitterDistance: {x: 0, y: 0}
+    GroundSnapDistance: 0.25
+    GroundSnapSpeed: 4
+    StepHeight: 0.3
+    StepDepth: 0.2
+    StepSpeed: 1
+    ForceSingleOverlapQuery: 0
+    Processors:
+    - {fileID: 6733955975318150615, guid: 0b1fae6ab34a6e0478cb92d6e1a62e44, type: 3}
+    - {fileID: -3592675505127058418, guid: 93e6d39666b21fe4ea884554d8526c00, type: 3}
+    PositionAccuracy:
+      _value: 0
+      _inverse: 0
+      _hash: -194233199
+    RotationAccuracy:
+      _value: 0
+      _inverse: 0
+      _hash: -258202764
+    MaxNetworkedCollisions: 4
+    MaxNetworkedModifiers: 4
+    MaxNetworkedIgnores: 4
 --- !u!114 &946002961529694322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 6384156740209879220}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

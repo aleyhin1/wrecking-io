@@ -67,7 +67,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         ballMovementScript.TargetPlayer = player;
 
         Vector3 ballOffset = ballMovementScript.GetOffsetWorldVector(10, spawnRotation);
-        ballObject.GetComponent<Rigidbody>().Move(spawnPosition + ballOffset, Quaternion.identity);
+        ballObject.GetComponent<KCC>().SetPosition(spawnPosition + ballOffset);
     }
 
 

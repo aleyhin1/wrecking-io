@@ -7,7 +7,7 @@ public class BotLogic : NetworkBehaviour
 {
     public enum State {Idle, Chase, Attack}
     public Vector3 MovementDirection;
-    public State CurrentState = State.Chase;
+    public State CurrentState = State.Idle;
     public LayerMask CarLayer;
     private List<Ray> _rays = new List<Ray>();
 
