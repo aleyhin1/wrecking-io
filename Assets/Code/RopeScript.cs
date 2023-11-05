@@ -42,7 +42,7 @@ public class RopeScript : NetworkBehaviour
     private Vector3 GetRopeEndPosition(KCC carKcc)
     {
         Vector3 carPosition = carKcc.Data.TargetPosition;
-        Vector3 carOffset = new Vector3(0, 1, 0);
+        Vector3 carOffset = TransformUtils.GetOffsetWorldVector(2, carKcc.Data.LookRotation) + new Vector3(0, 1, 0);
         Vector3 ropeEndPosition = carPosition + carOffset;
         return ropeEndPosition;
     }

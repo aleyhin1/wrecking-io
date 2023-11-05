@@ -44,7 +44,7 @@ public class BallMovement : NetworkBehaviour
     {
         Vector3 playerPosition = _carKcc.Data.TargetPosition;
         Quaternion rotation = _carKcc.Data.LookRotation;
-        Vector3 position = playerPosition + GetOffsetWorldVector(8, rotation);
+        Vector3 position = playerPosition + TransformUtils.GetOffsetWorldVector(8, rotation);
         Vector3 ropeForce = (position - _ballKcc.Data.TargetPosition) * 75;
         _ballKcc.SetExternalForce(ropeForce);
     }
@@ -70,10 +70,7 @@ public class BallMovement : NetworkBehaviour
         _lastFramePosition = transform.position;
     }
 
-    public Vector3 GetOffsetWorldVector(float distance, Quaternion rotation)
-    {
-        return new Vector3(-distance * Mathf.Cos(rotation.eulerAngles.y * Mathf.Deg2Rad), 0, distance * Mathf.Sin(rotation.eulerAngles.y * Mathf.Deg2Rad));
-    }
+    
 
     public void BindCarKcc()
     {

@@ -63,10 +63,9 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     private void InitBall(NetworkObject ballObject, PlayerRef player, Vector3 spawnPosition, Quaternion spawnRotation)
     {
         BallMovement ballMovementScript = ballObject.GetComponent<BallMovement>();
-
         ballMovementScript.TargetPlayer = player;
 
-        Vector3 ballOffset = ballMovementScript.GetOffsetWorldVector(10, spawnRotation);
+        Vector3 ballOffset = TransformUtils.GetOffsetWorldVector(10, spawnRotation);
         ballObject.GetComponent<KCC>().SetPosition(spawnPosition + ballOffset);
         ballObject.GetComponent<KCC>().SetLookRotation(spawnRotation);
     }
