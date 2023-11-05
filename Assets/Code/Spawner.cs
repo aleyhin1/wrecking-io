@@ -68,6 +68,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
         Vector3 ballOffset = ballMovementScript.GetOffsetWorldVector(10, spawnRotation);
         ballObject.GetComponent<KCC>().SetPosition(spawnPosition + ballOffset);
+        ballObject.GetComponent<KCC>().SetLookRotation(spawnRotation);
     }
 
 

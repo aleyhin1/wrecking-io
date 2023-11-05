@@ -12,11 +12,13 @@ public class BallMovement : NetworkBehaviour
     private KCC _carKcc;
     private KCC _ballKcc;
     private Vector3 _lastFramePosition;
+    private RopeScript _ropeScript;
 
     public override void Spawned()
     {
         base.Spawned();
         _ballKcc = GetComponent<KCC>();
+        _ropeScript = GetComponentInChildren<RopeScript>();
     }
 
     public override void FixedUpdateNetwork()
@@ -49,7 +51,13 @@ public class BallMovement : NetworkBehaviour
 
     private void SetBallRotation()
     {
-        Quaternion rotation = _carKcc.Data.LookRotation;
+        Vector3 carPosition = _carKcc.Data.TargetPosition;
+        Vector3 ballPosition = _ballKcc.Data.TargetPosition;
+        Vector3 directionVector = (carPosition - ballPosition).normalized;
+        float angle = Vector3.SignedAngle(Vector3.right, directionVector, Vector3.up);
+
+        Vector3 rotationVector = new Vector3(0, angle, 0);
+        Quaternion rotation = Quaternion.Euler(rotationVector);
         _ballKcc.SetLookRotation(rotation);
     }
 
@@ -72,5 +80,6 @@ public class BallMovement : NetworkBehaviour
         NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);
         KCC targetKcc = targetCarObject.GetComponent<KCC>();
         _carKcc = targetKcc;
+        _ropeScript.BindRope(targetKcc, _ballKcc);
     }
 }
