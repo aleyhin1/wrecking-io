@@ -70,8 +70,6 @@ public class BallMovement : NetworkBehaviour
         _lastFramePosition = transform.position;
     }
 
-    
-
     public void BindCarKcc()
     {
         NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);

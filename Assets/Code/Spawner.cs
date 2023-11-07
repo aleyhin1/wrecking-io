@@ -8,16 +8,17 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    public Dictionary<PlayerRef, NetworkObject> BallObjects = new Dictionary<PlayerRef, NetworkObject>();
-    public Stack<NetworkObject> botObjects = new Stack<NetworkObject>();
-    //public Stack<NetworkObject> botBallObjects = new Stack<NetworkObject>();
+    //public Dictionary<PlayerRef, NetworkObject> BallObjects = new Dictionary<PlayerRef, NetworkObject>();
+    //public Stack<NetworkObject> botObjects = new Stack<NetworkObject>();
+    public List<CharacterData> ActiveCharacters = new List<CharacterData>();
 
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     [SerializeField] private NetworkPrefabRef _ballPrefab;
     [SerializeField] private NetworkPrefabRef _botCarPrefab;
-    //[SerializeField] private NetworkPrefabRef _botBallPrefab;
+    [SerializeField] private NetworkPrefabRef _botBallPrefab;
     private int _spawnCount = 0;
+    private int _botCount = 0;
     private int[] _spawnRotations = { -90, 90, 0, -180, -45, 45, -135, 135 };
 
 
@@ -41,7 +42,9 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
             NetworkObject networkBallObject = runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
             InitBall(networkBallObject, player, spawnPosition, spawnRotation);
-            BallObjects.Add(player, networkBallObject);
+
+            CharacterData playerData = new CharacterData(player, networkPlayerObject, networkBallObject);
+            ActiveCharacters.Add(playerData);
 
             _spawnCount++;
         }
@@ -84,11 +87,12 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (Runner.IsServer)
         {
-            NetworkObject leftPlayerCar = Runner.GetPlayerObject(player);
-            BallObjects.TryGetValue(player, out NetworkObject leftBall);
-
-            Runner.Despawn(leftPlayerCar);
-            Runner.Despawn(leftBall);
+            //NetworkObject leftPlayerCar = Runner.GetPlayerObject(player);
+            //BallObjects.TryGetValue(player, out NetworkObject leftBall);
+            CharacterData leftPlayerData = ActiveCharacters.Find(x => x.PlayerRef == player);
+            
+            Runner.Despawn(leftPlayerData.CarObject);
+            Runner.Despawn(leftPlayerData.BallObject);
         }
     }
 
@@ -96,7 +100,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (Runner.IsServer)
         {
-            int AllowedBotCount = 8 - (Runner.ActivePlayers.Count<PlayerRef>() + botObjects.Count);
+            int AllowedBotCount = 8 - ActiveCharacters.Count;
             if (AllowedBotCount > 0)
             {
                 Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
@@ -105,12 +109,13 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
                 NetworkObject botObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
                 SetCarPositionAndRotation(botObject, spawnPosition, spawnRotation);
 
-                //NetworkObject botBallObject = Runner.Spawn(_botBallPrefab, Vector2.zero, Quaternion.identity);
-
-                botObjects.Push(botObject);
-                //botBallObjects.Push(botBallObject);
+                NetworkObject botBallObject = Runner.Spawn(_botBallPrefab, Vector2.zero, Quaternion.identity);
 
                 _spawnCount++;
+                _botCount++;
+
+                CharacterData botData = new CharacterData(PlayerRef.None, botObject, botBallObject, _botCount);
+                ActiveCharacters.Add(botData);
             }
         }
     }
@@ -119,15 +124,15 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (Runner.IsServer)
         {
-            if (botObjects.Count != 0)
+            if (_botCount != 0)
             {
-                NetworkObject lastSpawnedCar = botObjects.Pop();
-                //NetworkObject lastSpawnedBall = botBallObjects.Pop();
+                CharacterData lastBotData = ActiveCharacters.Find( x => x.BotIndex == _botCount );
 
-                Runner.Despawn(lastSpawnedCar);
-                //Runner.Despawn(lastSpawnedBall);
+                Runner.Despawn(lastBotData.CarObject);
+                Runner.Despawn(lastBotData.BallObject);
 
                 _spawnCount--;
+                _botCount--;
             }
         }
     }

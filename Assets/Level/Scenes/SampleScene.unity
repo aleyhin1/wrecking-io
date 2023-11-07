@@ -10137,6 +10137,8 @@ MonoBehaviour:
     RawGuidValue: 26e26042a38380c499ee37629c8e9cab
   _botCarPrefab:
     RawGuidValue: 1e9d6ba3284b18c49a0229ed19edb10e
+  _botBallPrefab:
+    RawGuidValue: 83bbfa3580be2cf4383256edac451288
 --- !u!114 &1716129574
 MonoBehaviour:
   m_ObjectHideFlags: 0
