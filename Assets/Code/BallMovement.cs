@@ -9,7 +9,7 @@ public class BallMovement : NetworkBehaviour
 {
     [Networked] public PlayerRef TargetPlayer { get; set; }
     public Vector3 pseudoVelocity;
-    private KCC _carKcc;
+    public KCC _carKcc { get; private set; }
     private KCC _ballKcc;
     private Vector3 _lastFramePosition;
     private RopeScript _ropeScript;

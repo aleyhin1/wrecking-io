@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 4024700305923390225}
   - component: {fileID: 946002961529694322}
   - component: {fileID: 503609639360927827}
+  - component: {fileID: 4931408155680152775}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -328,6 +329,29 @@ MonoBehaviour:
   - {fileID: 7466744167068657436}
   - {fileID: 3089493914555427369}
   - {fileID: 4731457364237118389}
+--- !u!136 &4931408155680152775
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6144811881722289256}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.8
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &6384156740209879220
 GameObject:
   m_ObjectHideFlags: 0
