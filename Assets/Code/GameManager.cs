@@ -1,7 +1,9 @@
 using Fusion;
+using Fusion.KCC;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static GameState;
 
@@ -12,6 +14,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public static CameraManager CameraManager { get; private set; }
     public static ArenaManager ArenaManager { get; private set; }
     public static UIManager UIManager { get; private set; }
+    public static Spawner Spawner { get; private set; }
 
     public GameObject DeathScreen;
     public GameObject PreGameScreen;
@@ -28,6 +31,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
             CameraManager = GetComponent<CameraManager>();
             ArenaManager = GetComponent<ArenaManager>();
             UIManager = GetComponent<UIManager>();
+            Spawner = GetComponent<Spawner>();
         }
         else
         {
@@ -91,19 +95,20 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         }
     }
 
-    public void BindCarKcc()
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_RequestPreviousCharacterDatas(PlayerRef playerRef)
     {
-        foreach(GameObject ball in FindBallsOnScene())
+        foreach (CharacterData characterData in Spawner.ActiveCharacters)
         {
-            BallMovement ballMovementScript = ball.GetComponent<BallMovement>();
-            ballMovementScript.BindCarKcc();
+            RPC_LoadPreviousCharacterData(playerRef, characterData.CarObject, characterData.BallObject);
         }
     }
 
-    private GameObject[] FindBallsOnScene()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_LoadPreviousCharacterData([RpcTarget] PlayerRef player, NetworkObject carObject, NetworkObject ballObject)
     {
-        GameObject[] BallObjects = GameObject.FindGameObjectsWithTag("Ball");
-        return BallObjects;
+        Spawner.BindKCC(carObject, ballObject);
+        Spawner.BindRope(carObject, ballObject);
     }
 
     public void ExitGame()

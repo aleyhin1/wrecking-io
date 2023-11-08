@@ -7,18 +7,15 @@ using UnityEngine.UIElements;
 
 public class BallMovement : NetworkBehaviour
 {
-    [Networked] public PlayerRef TargetPlayer { get; set; }
     public Vector3 pseudoVelocity;
-    public KCC _carKcc { get; private set; }
+    public KCC _carKcc { get; set; }
     private KCC _ballKcc;
     private Vector3 _lastFramePosition;
-    private RopeScript _ropeScript;
 
     public override void Spawned()
     {
         base.Spawned();
         _ballKcc = GetComponent<KCC>();
-        _ropeScript = GetComponentInChildren<RopeScript>();
     }
 
     public override void FixedUpdateNetwork()
@@ -70,11 +67,11 @@ public class BallMovement : NetworkBehaviour
         _lastFramePosition = transform.position;
     }
 
-    public void BindCarKcc()
-    {
-        NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);
-        KCC targetKcc = targetCarObject.GetComponent<KCC>();
-        _carKcc = targetKcc;
-        _ropeScript.BindRope(targetKcc, _ballKcc);
-    }
+    //public void BindCarKcc()
+    //{
+    //    NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);
+    //    KCC targetKcc = targetCarObject.GetComponent<KCC>();
+    //    _carKcc = targetKcc;
+    //    _ropeScript.BindRope(targetKcc, _ballKcc);
+    //}
 }

@@ -8,9 +8,7 @@ using UnityEngine;
 
 public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    //public Dictionary<PlayerRef, NetworkObject> BallObjects = new Dictionary<PlayerRef, NetworkObject>();
-    //public Stack<NetworkObject> botObjects = new Stack<NetworkObject>();
-    public List<CharacterData> ActiveCharacters = new List<CharacterData>();
+    public static List<CharacterData> ActiveCharacters = new List<CharacterData>();
 
     [SerializeField] private Transform[] _spawnPositions;
     [SerializeField] private NetworkPrefabRef _playerPrefab;
@@ -30,7 +28,7 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
+        if (Runner.IsServer)
         {
             Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
             Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
@@ -41,17 +39,15 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
             SetCarPositionAndRotation(networkPlayerObject, spawnPosition, spawnRotation);
 
             NetworkObject networkBallObject = runner.Spawn(_ballPrefab, Vector3.zero, Quaternion.identity, player);
-            InitBall(networkBallObject, player, spawnPosition, spawnRotation);
+            InitBall(networkBallObject, spawnPosition, spawnRotation);
 
             CharacterData playerData = new CharacterData(player, networkPlayerObject, networkBallObject);
             ActiveCharacters.Add(playerData);
 
-            _spawnCount++;
-        }
+            RPC_BindKCC(networkPlayerObject, networkBallObject);
+            RPC_BindRope(networkPlayerObject, networkBallObject);
 
-        if (Runner.LocalPlayer == player)
-        {
-            StartCoroutine(ActivatePlayerCamera());
+            _spawnCount++;
         }
     }
 
@@ -63,21 +59,44 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         playerCarKcc.SetLookRotation(spawnRotation);
     }
 
-    private void InitBall(NetworkObject ballObject, PlayerRef player, Vector3 spawnPosition, Quaternion spawnRotation)
+    private void InitBall(NetworkObject ballObject, Vector3 spawnPosition, Quaternion spawnRotation)
     {
-        BallMovement ballMovementScript = ballObject.GetComponent<BallMovement>();
-        ballMovementScript.TargetPlayer = player;
-
         Vector3 ballOffset = TransformUtils.GetOffsetWorldVector(10, spawnRotation);
         ballObject.GetComponent<KCC>().SetPosition(spawnPosition + ballOffset);
         ballObject.GetComponent<KCC>().SetLookRotation(spawnRotation);
     }
 
-
-    private IEnumerator ActivatePlayerCamera()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_BindKCC(NetworkObject carObject, NetworkObject ballObject)
     {
-        yield return new WaitForSeconds(.5f);
+        BindKCC(carObject, ballObject);
+    }
 
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_BindRope(NetworkObject carObject, NetworkObject ballObject)
+    {
+        BindRope(carObject, ballObject);
+    }
+
+    public void BindKCC(NetworkObject carObject, NetworkObject ballObject)
+    {
+        BallMovement ballScript = ballObject.GetComponent<BallMovement>();
+        KCC carKCC = carObject.GetComponent<KCC>();
+        ballScript._carKcc = carKCC;
+        Debug.Log("KCC Binded");
+    }
+
+    public void BindRope(NetworkObject carObject, NetworkObject ballObject)
+    {
+        RopeScript ropeScript = ballObject.GetComponentInChildren<RopeScript>();
+        KCC carKCC = carObject.GetComponent<KCC>();
+        KCC ballKCC = ballObject.GetComponent<KCC>();
+        ropeScript.BindRope(carKCC, ballKCC);
+        Debug.Log("Rope Binded");
+    }
+
+    public void ActivatePlayerCamera()
+    {
         Runner.TryGetPlayerObject(Runner.LocalPlayer, out NetworkObject networkPlayerObject);
         var playerCamera = networkPlayerObject.gameObject.GetComponentInChildren<Camera>(includeInactive: true);
         playerCamera.gameObject.SetActive(true);
@@ -87,8 +106,6 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
     {
         if (Runner.IsServer)
         {
-            //NetworkObject leftPlayerCar = Runner.GetPlayerObject(player);
-            //BallObjects.TryGetValue(player, out NetworkObject leftBall);
             CharacterData leftPlayerData = ActiveCharacters.Find(x => x.PlayerRef == player);
             
             Runner.Despawn(leftPlayerData.CarObject);
@@ -106,15 +123,18 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
                 Vector3 spawnPosition = _spawnPositions[_spawnCount].position;
                 Quaternion spawnRotation = Quaternion.Euler(0, _spawnRotations[_spawnCount], 0);
 
-                NetworkObject botObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
-                SetCarPositionAndRotation(botObject, spawnPosition, spawnRotation);
+                NetworkObject botCarObject = Runner.Spawn(_botCarPrefab, spawnPosition, Quaternion.identity);
+                SetCarPositionAndRotation(botCarObject, spawnPosition, spawnRotation);
 
                 NetworkObject botBallObject = Runner.Spawn(_botBallPrefab, Vector2.zero, Quaternion.identity);
+                InitBall(botBallObject, spawnPosition, spawnRotation);
+                RPC_BindKCC(botCarObject, botBallObject);
+                RPC_BindRope(botCarObject, botBallObject);
 
                 _spawnCount++;
                 _botCount++;
 
-                CharacterData botData = new CharacterData(PlayerRef.None, botObject, botBallObject, _botCount);
+                CharacterData botData = new CharacterData(botCarObject, botBallObject, _botCount);
                 ActiveCharacters.Add(botData);
             }
         }

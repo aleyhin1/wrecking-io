@@ -18,9 +18,9 @@ public class CharacterData
         BotIndex = null;
     }
 
-    public CharacterData(PlayerRef playerRef, NetworkObject carObject, NetworkObject ballObject, int botIndex)
+    public CharacterData(NetworkObject carObject, NetworkObject ballObject, int botIndex)
     {
-        PlayerRef = playerRef;
+        PlayerRef = PlayerRef.None;
         CarObject = carObject;
         BallObject = ballObject;
         BotIndex = botIndex;

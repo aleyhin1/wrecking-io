@@ -19,9 +19,15 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Pregame].onEnter = state =>
         {
+            if (Runner.IsClient)
+            {
+                GameManager.Instance.RPC_RequestPreviousCharacterDatas(Runner.LocalPlayer);
+            }
+
             GameManager.CameraManager.MenuCamera.gameObject.SetActive(false);
             GameManager.UIManager.MainMenuScreen.gameObject.SetActive(false);
             GameManager.UIManager.PreGameScreen.gameObject.SetActive(true);
+            GameManager.Spawner.ActivatePlayerCamera();
 
             if (Runner.IsServer)
             {
@@ -50,7 +56,7 @@ public class GameState : NetworkBehaviour
 
         StateMachine[EGameState.Play].onEnter = state =>
         {
-            GameManager.Instance.BindCarKcc();
+            //GameManager.Instance.BindCarKcc();
             GameManager.Instance.PreGameScreen.SetActive(false);
             GameManager.ArenaManager.enabled = true;
             GameManager.Instance.Joystick.SetActive(true);
