@@ -8,7 +8,7 @@ public class CharacterData
     public PlayerRef PlayerRef { get; private set; }
     public NetworkObject CarObject { get; private set; }
     public NetworkObject BallObject { get; private set; }
-    public int? BotIndex { get; private set; }
+    public int BotIndex { get; private set; }
     public int CarColorIndex { get; set; }
     public int PlayerColorIndex { get; set; }
     public int BallColorIndex { get; set; }
@@ -18,7 +18,6 @@ public class CharacterData
         PlayerRef = playerRef;
         CarObject = carObject;  
         BallObject = ballObject;
-        BotIndex = null;
     }
 
     public CharacterData(NetworkObject carObject, NetworkObject ballObject, int botIndex, int carColorIndex, int playerColorIndex, 

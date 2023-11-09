@@ -121,6 +121,28 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         Runner.Shutdown();
     }
 
+    public void ActivateBots(List<CharacterData> botsToActivate)
+    {
+        foreach (CharacterData botData in botsToActivate)
+        {
+            BotLogic logicScript = botData.CarObject.GetComponent<BotLogic>();
+            var chaseState = BotLogic.State.Chase;
+            ChangeBotState(logicScript, chaseState);
+        }
+    }
+
+    public void ChangeBotState(BotLogic botLogic, BotLogic.State botState)
+    {
+        botLogic.CurrentState = botState;
+    }
+
+    public List<CharacterData> GetActiveBotDatas()
+    {
+        if (!Runner.IsServer) return null;
+
+        return Spawner.ActiveCharacters.FindAll(x => x.BotIndex != 0);
+    }
+
     #region NetworkRunnerCallbacks
     void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, Fusion.Sockets.NetAddress remoteAddress, Fusion.Sockets.NetConnectFailedReason reason) { }
     void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
