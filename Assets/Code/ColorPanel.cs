@@ -33,6 +33,7 @@ public class ColorPanel : MonoBehaviour
         _carColorIndex = _carColorIndex % CarColorChanger.Instance.CarMaterials.Length;
         CarColorChanger.Instance.RPC_ChangeCarColor(_carColorIndex);
         CarColorText.text = CarColorChanger.Instance.CarMaterials[_carColorIndex].name;
+        CarColorChanger.Instance.SetCarColorData(_carColorIndex);
     }
 
     public void ChangePlayerColorRight()
@@ -55,6 +56,7 @@ public class ColorPanel : MonoBehaviour
         _playerColorIndex = _playerColorIndex % CarColorChanger.Instance.PlayerMaterials.Length;
         CarColorChanger.Instance.RPC_ChangePlayerColor(_playerColorIndex);
         PlayerColorText.text = CarColorChanger.Instance.PlayerMaterials[_playerColorIndex].name;
+        CarColorChanger.Instance.SetPlayerColorData(_playerColorIndex);
     }
 
     public void ChangeBallColorRight()
@@ -77,5 +79,6 @@ public class ColorPanel : MonoBehaviour
         _ballColorIndex = _ballColorIndex % BallColorChanger.Instance.BallModels.Length;
         BallColorChanger.Instance.RPC_ChangeBallModel(_ballColorIndex);
         BallColorText.text = BallColorChanger.Instance.BallModels[_ballColorIndex].name;
+        BallColorChanger.Instance.SetBallColorData(_ballColorIndex);
     }
 }

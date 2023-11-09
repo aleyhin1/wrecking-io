@@ -25,9 +25,26 @@ public class BallColorChanger : NetworkBehaviour
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_ChangeBallModel(int index)
     {
+        ChangeBallModel(index);
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RPC_SetBallColorData(PlayerRef player, int ballColorIndex)
+    {
+        CharacterData targetCharacterData = Spawner.ActiveCharacters.Find(x => x.PlayerRef == player);
+        targetCharacterData.BallColorIndex = ballColorIndex;
+    }
+
+    public void ChangeBallModel(int index)
+    {
         _activeBallModel.SetActive(false);
         BallModels[index].gameObject.SetActive(true);
         _activeBallModel = BallModels[index];
+    }
+
+    public void SetBallColorData(int ballColorIndex)
+    {
+        RPC_SetBallColorData(Runner.LocalPlayer, ballColorIndex);
     }
 
 }

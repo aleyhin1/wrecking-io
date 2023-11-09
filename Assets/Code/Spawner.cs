@@ -83,7 +83,6 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         BallMovement ballScript = ballObject.GetComponent<BallMovement>();
         KCC carKCC = carObject.GetComponent<KCC>();
         ballScript._carKcc = carKCC;
-        Debug.Log("KCC Binded");
     }
 
     public void BindRope(NetworkObject carObject, NetworkObject ballObject)
@@ -92,7 +91,6 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
         KCC carKCC = carObject.GetComponent<KCC>();
         KCC ballKCC = ballObject.GetComponent<KCC>();
         ropeScript.BindRope(carKCC, ballKCC);
-        Debug.Log("Rope Binded");
     }
 
     public void ActivatePlayerCamera()

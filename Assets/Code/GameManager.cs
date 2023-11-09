@@ -100,15 +100,20 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     {
         foreach (CharacterData characterData in Spawner.ActiveCharacters)
         {
-            RPC_LoadPreviousCharacterData(playerRef, characterData.CarObject, characterData.BallObject);
+            RPC_LoadPreviousCharacterData(playerRef, characterData.CarObject, characterData.BallObject, characterData.CarColorIndex,
+                 characterData.PlayerColorIndex, characterData.BallColorIndex);
         }
     }
 
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_LoadPreviousCharacterData([RpcTarget] PlayerRef player, NetworkObject carObject, NetworkObject ballObject)
+    private void RPC_LoadPreviousCharacterData([RpcTarget] PlayerRef player, NetworkObject carObject, NetworkObject ballObject,
+         int carColorIndex, int playerColorIndex, int ballColorIndex)
     {
         Spawner.BindKCC(carObject, ballObject);
         Spawner.BindRope(carObject, ballObject);
+        carObject.GetComponent<CarColorChanger>().ChangeCarColor(carColorIndex);
+        carObject.GetComponent<CarColorChanger>().ChangePlayerColor(playerColorIndex);
+        ballObject.GetComponent<BallColorChanger>().ChangeBallModel(ballColorIndex);
     }
 
     public void ExitGame()
