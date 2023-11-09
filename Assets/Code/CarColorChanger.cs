@@ -23,13 +23,13 @@ public class CarColorChanger : NetworkBehaviour
     }
 
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_ChangeCarColor(int index)
     {
         ChangeCarColor(index);
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_ChangePlayerColor(int index)
     {
         ChangePlayerColor(index);

@@ -21,11 +21,15 @@ public class CharacterData
         BotIndex = null;
     }
 
-    public CharacterData(NetworkObject carObject, NetworkObject ballObject, int botIndex)
+    public CharacterData(NetworkObject carObject, NetworkObject ballObject, int botIndex, int carColorIndex, int playerColorIndex, 
+        int ballColorIndex)
     {
         PlayerRef = PlayerRef.None;
         CarObject = carObject;
         BallObject = ballObject;
         BotIndex = botIndex;
+        CarColorIndex = carColorIndex;
+        PlayerColorIndex = playerColorIndex;
+        BallColorIndex = ballColorIndex;
     }
 }

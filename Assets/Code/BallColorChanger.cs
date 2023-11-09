@@ -22,7 +22,7 @@ public class BallColorChanger : NetworkBehaviour
         _activeBallModel = BallModels[0];
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_ChangeBallModel(int index)
     {
         ChangeBallModel(index);

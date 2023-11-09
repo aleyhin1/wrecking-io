@@ -3,6 +3,7 @@ using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -129,10 +130,19 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
                 RPC_BindKCC(botCarObject, botBallObject);
                 RPC_BindRope(botCarObject, botBallObject);
 
+                int randomCarColor = GetRandomIndex(GetCarColorsLength(botCarObject));
+                int randomPlayerColor = GetRandomIndex(GetPlayerColorsLength(botCarObject));
+                int randomBallColor = GetRandomIndex(GetBallColorsLength(botBallObject));
+                SetBotCarColor(botCarObject, randomCarColor);
+                SetBotPlayerColor(botCarObject, randomPlayerColor);
+                SetBotBallColor(botBallObject, randomBallColor);
+
+
                 _spawnCount++;
                 _botCount++;
 
-                CharacterData botData = new CharacterData(botCarObject, botBallObject, _botCount);
+                CharacterData botData = new CharacterData(botCarObject, botBallObject, _botCount, randomCarColor, randomPlayerColor, 
+                    randomBallColor);
                 ActiveCharacters.Add(botData);
             }
         }
@@ -149,10 +159,53 @@ public class Spawner : NetworkBehaviour, INetworkRunnerCallbacks
                 Runner.Despawn(lastBotData.CarObject);
                 Runner.Despawn(lastBotData.BallObject);
 
+                ActiveCharacters.Remove(lastBotData);
+
                 _spawnCount--;
                 _botCount--;
             }
         }
+    }
+
+    private void SetBotCarColor(NetworkObject carObject, int carColorIndex)
+    {
+        CarColorChanger carColorChanger = carObject.GetComponent<CarColorChanger>();
+        carColorChanger.RPC_ChangeCarColor(carColorIndex);
+    }
+
+    private void SetBotPlayerColor(NetworkObject carObject, int playerColorIndex)
+    {
+        CarColorChanger carColorChanger = carObject.GetComponent<CarColorChanger>();
+        carColorChanger.RPC_ChangePlayerColor(playerColorIndex);
+    }
+    
+    private void SetBotBallColor(NetworkObject ballObject, int ballColorIndex)
+    {
+        BallColorChanger ballColorChanger = ballObject.GetComponent<BallColorChanger>();
+        ballColorChanger.RPC_ChangeBallModel(ballColorIndex);
+    }
+
+    private int GetCarColorsLength(NetworkObject carObject)
+    {
+        CarColorChanger carColorChanger = carObject.GetComponent<CarColorChanger>();
+        return carColorChanger.CarMaterials.Length;
+    }
+
+    private int GetPlayerColorsLength(NetworkObject carObject)
+    {
+        CarColorChanger carColorChanger = carObject.GetComponent<CarColorChanger>();
+        return carColorChanger.PlayerMaterials.Length;
+    }
+    
+    private int GetBallColorsLength(NetworkObject ballObject)
+    {
+        BallColorChanger ballColorChanger = ballObject.GetComponent<BallColorChanger>();
+        return ballColorChanger.BallModels.Length;
+    }
+
+    private int GetRandomIndex(int maxLength)
+    {
+        return Random.Range(0, maxLength);
     }
 
     #region NetworkRunnerCallbacks

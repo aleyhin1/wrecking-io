@@ -32,6 +32,7 @@ public class GameState : NetworkBehaviour
             if (Runner.IsServer)
             {
                 GameManager.UIManager.SettingsPanel.gameObject.SetActive(true);
+
             }
 
             Previous = EGameState.Pregame;
