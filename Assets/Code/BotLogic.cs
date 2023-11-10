@@ -8,12 +8,14 @@ public class BotLogic : NetworkBehaviour
     public enum State {Idle, Chase, Attack}
     public Vector3 MovementDirection;
     public State CurrentState = State.Idle;
-    public LayerMask CarLayer;
-    private List<Ray> _rays = new List<Ray>();
+    private int _attackDistance = 15;
+    private int _chaseDistance = 60;
 
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
+
+        if (!Runner.IsServer) return;
 
         switch (CurrentState)
         {
@@ -21,71 +23,59 @@ public class BotLogic : NetworkBehaviour
                 break;
 
             case State.Chase:
-                DrawRays();
                 SetMovementDirection();
+                DetermineState();
                 break;
 
             case State.Attack:
+                DetermineState();
                 break;
         }
     }
 
-    private void DrawRays()
+    private void DetermineState()
     {
-        _rays.Clear();
 
-        Vector3 rayOffset = new Vector3(0, 2, 0);
-
-        Ray rayWest = new Ray(transform.position + rayOffset, new Vector3(-1,0,0));
-        Ray raySouthWest = new Ray(transform.position + rayOffset, new Vector3(-1, 0, -1));
-        Ray raySouth = new Ray (transform.position + rayOffset, new Vector3(0, 0, -1));
-        Ray raySouthEast = new Ray(transform.position + rayOffset, new Vector3(1, 0, -1));
-        Ray rayEast = new Ray(transform.position + rayOffset, new Vector3(1, 0, 0));
-        Ray rayNorthEast = new Ray(transform.position + rayOffset, new Vector3(1, 0, 1));
-        Ray rayNorth = new Ray(transform.position + rayOffset, new Vector3(0,0,1));
-        Ray rayNorthWest = new Ray(transform.position + rayOffset, new Vector3(-1, 0, 1));
-
-        _rays.Add(rayWest);
-        _rays.Add(raySouthWest);
-        _rays.Add(raySouth);
-        _rays.Add(raySouthEast);
-        _rays.Add(rayEast);
-        _rays.Add(rayNorthEast);
-        _rays.Add(rayNorth);
-        _rays.Add(rayNorthWest);
+        if ((GetDistanceVector().magnitude != 0) && (GetDistanceVector().magnitude < _attackDistance))
+        {
+            CurrentState = State.Attack;
+        }
+        else if(GetDistanceVector().magnitude < _chaseDistance)
+        {
+            CurrentState = State.Chase;
+        }
     }
 
     private void SetMovementDirection()
     {
-        MovementDirection = FindClosestCarPosition() - transform.position;
+        MovementDirection = GetDistanceVector().normalized;
+    }
+
+    private Vector3 GetDistanceVector()
+    {
+        return FindClosestCarPosition() - transform.position;
     }
 
     private Vector3 FindClosestCarPosition()
     {
-        Vector3 targetPosition = Vector3.zero;
-
-        float minDistance = 15;
-
-        foreach (Ray ray in _rays)
+        if (Runner.IsServer)
         {
-            Debug.DrawRay(ray.origin, ray.direction * 15, Color.white, .2f);
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, 15, CarLayer))
+            Vector3 targetPosition = transform.position;
+            float minDistance = _chaseDistance;
+
+            foreach (CharacterData characterData in Spawner.ActiveCharacters)
             {
-                Debug.DrawRay(ray.origin, ray.direction * 15, Color.red, .2f);
-                if (raycastHit.collider.name == "KCCCollider")
+                Vector3 carPosition = characterData.CarObject.transform.position;
+                float distance = (transform.position - carPosition).magnitude;
+
+                if ((distance < minDistance) && (distance != 0))
                 {
-                    Vector3 collidingCarPosition = raycastHit.collider.GetComponentInParent<Transform>().position;
-
-                    float distance = (transform.position - collidingCarPosition).magnitude;
-
-                    if (distance < minDistance)
-                    {
-                        targetPosition = raycastHit.transform.position;
-                        minDistance = distance;
-                    }
+                    targetPosition = carPosition;
+                    minDistance = distance;
                 }
             }
+            return targetPosition;
         }
-        return targetPosition;
+        return transform.position;
     }
 }

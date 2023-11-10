@@ -2,6 +2,7 @@ using Fusion;
 using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class BotMovement : NetworkBehaviour
@@ -9,6 +10,7 @@ public class BotMovement : NetworkBehaviour
     public KCC Kcc { get; private set; }
     private BotLogic _botLogic;
     private const float turnSpeed = .1f;
+    private int _attackCooldownValue = 5;
     
     public override void Spawned()
     {
@@ -20,11 +22,34 @@ public class BotMovement : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         base.FixedUpdateNetwork();
+
         if (_botLogic.CurrentState == BotLogic.State.Chase)
         {
             Kcc.SetInputDirection(_botLogic.MovementDirection);
             Kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, GetRotationQuaternion(), turnSpeed));
         }
+        else if (_botLogic.CurrentState == BotLogic.State.Attack)
+        {
+            Kcc.AddLookRotation(0, 5);
+        }
+    }
+
+    private int GetRandomSign()
+    {
+        int sign = Random.Range(0, 2);
+        if (sign == 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    private int GetRandomAttackSpeed(int maxSpeed)
+    {
+        return Random.Range(0, maxSpeed);
     }
 
     private Quaternion GetRotationQuaternion()
