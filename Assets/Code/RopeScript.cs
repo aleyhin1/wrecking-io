@@ -33,7 +33,7 @@ public class RopeScript : NetworkBehaviour
 
     private Vector3 GetRopeStartPosition(KCC ballKcc)
     {
-        Vector3 ballPosition = ballKcc.Data.TargetPosition;
+        Vector3 ballPosition = ballKcc.gameObject.transform.position;
         Vector3 ballOffset = new Vector3(0, 2, 0);
         Vector3 ropeStartPosition = ballPosition + ballOffset;
         return ropeStartPosition;
@@ -46,5 +46,4 @@ public class RopeScript : NetworkBehaviour
         Vector3 ropeEndPosition = carPosition + carOffset;
         return ropeEndPosition;
     }
-
 }

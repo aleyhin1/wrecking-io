@@ -2,7 +2,6 @@ using Fusion;
 using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class BotMovement : NetworkBehaviour
@@ -10,7 +9,6 @@ public class BotMovement : NetworkBehaviour
     public KCC Kcc { get; private set; }
     private BotLogic _botLogic;
     private const float turnSpeed = .1f;
-    private int _attackCooldownValue = 5;
     
     public override void Spawned()
     {
