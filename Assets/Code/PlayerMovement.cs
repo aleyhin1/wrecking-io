@@ -25,12 +25,13 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Rotate(Vector2 backgroundPos, Vector2 handlePos)
     {
-        float rotationAngle = GetRotationAngle(backgroundPos, handlePos);
+        float rotationAngle = GetRotationAngle(backgroundPos, handlePos) + GetCurrentCarAngle();
 
         // Zero check to prevent rb to snap back to zero rotation.
         if (rotationAngle != 0)
         {
-            Kcc.SetLookRotation(Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotationAngle, 0), .1f));
+            Kcc.SetLookRotation(Quaternion.Lerp(Kcc.Data.TransformRotation, Quaternion.Euler(0, rotationAngle, 0), .05f));
+            
         }
     }
 
@@ -42,14 +43,34 @@ public class PlayerMovement : NetworkBehaviour
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)
     {
         Vector2 DifferenceVector = (lastVector - initialVector);
-        return Mathf.Atan2(-DifferenceVector.y, DifferenceVector.x) * Mathf.Rad2Deg;
+        if (DifferenceVector.magnitude > 0)
+        {
+            float differenceAngle = 90 - Mathf.Atan2(DifferenceVector.y, DifferenceVector.x) * Mathf.Rad2Deg;
+            return differenceAngle;
+        }
+        else
+        {
+            return 0;
+        }
+        
     }
 
     private Vector3 GetMovementDirection(Vector2 initialVector, Vector2 lastVector)
     {
-        Vector2 DifferenceVectorNormalized = (lastVector - initialVector).normalized;
-        Vector3 MovementDirection = new Vector3(DifferenceVectorNormalized.x, 0 ,DifferenceVectorNormalized.y);
-        
-        return MovementDirection;
+        Vector2 inputVector = (lastVector - initialVector);
+        if (inputVector.magnitude > 100)
+        {   
+            Vector3 movementDirection = Quaternion.AngleAxis(GetCurrentCarAngle(), Vector3.up) * Vector3.right;
+            return movementDirection;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
+
+    private float GetCurrentCarAngle()
+    {
+        return Kcc.Data.TransformRotation.eulerAngles.y;
     }
 }
