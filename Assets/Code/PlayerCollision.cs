@@ -27,9 +27,10 @@ public class PlayerCollision : NetworkBehaviour
             // Only collide with balls other than your own
             if (targetCarOfBall != this.gameObject)
             {
-                Vector3 ballVelocity = collision.Collider.gameObject.GetComponent<KCC>().Data.DesiredVelocity;
+                Vector3 ballVelocity = collision.Collider.gameObject.GetComponent<KCC>().Data.DesiredVelocity * 2;
                 Debug.Log(ballVelocity.magnitude);
-                kcc.AddExternalVelocity(ballVelocity);
+                kcc.AddExternalImpulse(ballVelocity);
+                targetCarOfBall.GetComponent<KCC>().AddExternalImpulse(-ballVelocity);
             }
         }
     }
