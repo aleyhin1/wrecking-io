@@ -120,6 +120,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public void ExitGame()
     {
         Runner.Shutdown();
+        Spawner.ActiveCharacters.Clear();
     }
 
     public void ActivateBots(List<CharacterData> botsToActivate)
