@@ -21,7 +21,8 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public NetworkDebugStart Starter;
     public GameObject Joystick;
     public int ReadyPlayerCount = 0;
-
+    public string NickName;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -141,6 +142,12 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         if (!Runner.IsServer) return null;
 
         return Spawner.ActiveCharacters.FindAll(x => x.BotIndex != 0);
+    }
+
+    public void SetNickName(string text)
+    {
+        NickName = text;
+        Debug.Log(NickName);
     }
 
     #region NetworkRunnerCallbacks
