@@ -25,7 +25,6 @@ public class GamerTagScript : NetworkBehaviour
     private void Update()
     {
         LookAtCamera();
-        Debug.Log(GamerTag);
     }
 
     public void LookAtCamera()
@@ -50,7 +49,6 @@ public class GamerTagScript : NetworkBehaviour
     private void SetGamerTag()
     {
         _textMesh.text = GamerTag;
-        Debug.Log("I set the gamer tag to " + GamerTag);
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]

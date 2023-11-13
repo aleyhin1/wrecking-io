@@ -17,6 +17,8 @@ public class PlayerCollision : NetworkBehaviour
 
     private void BallCollision(KCC kcc, KCCCollision collision)
     {
+        if (!Runner.IsServer) return;
+
         if (collision.Collider.tag == "Ball")
         {
             BallMovement ballMovementScript = collision.Collider.GetComponent<BallMovement>();
@@ -25,7 +27,8 @@ public class PlayerCollision : NetworkBehaviour
             // Only collide with balls other than your own
             if (targetCarOfBall != this.gameObject)
             {
-                Vector3 ballVelocity = collision.Collider.gameObject.GetComponent<BallMovement>().pseudoVelocity;
+                Vector3 ballVelocity = collision.Collider.gameObject.GetComponent<KCC>().Data.DesiredVelocity;
+                Debug.Log(ballVelocity.magnitude);
                 kcc.AddExternalVelocity(ballVelocity);
             }
         }

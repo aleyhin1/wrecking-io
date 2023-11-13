@@ -7,10 +7,8 @@ using UnityEngine.UIElements;
 
 public class BallMovement : NetworkBehaviour
 {
-    public Vector3 pseudoVelocity;
     public KCC _carKcc { get; set; }
     private KCC _ballKcc;
-    private Vector3 _lastFramePosition;
 
     public override void Spawned()
     {
@@ -25,8 +23,6 @@ public class BallMovement : NetworkBehaviour
             SetBallVelocity();
             SetRopeForce();
             SetBallRotation();
-            
-            SetPseudoVelocity();
         }
     }
 
@@ -57,21 +53,4 @@ public class BallMovement : NetworkBehaviour
         Quaternion rotation = Quaternion.Euler(rotationVector);
         _ballKcc.SetLookRotation(rotation);
     }
-
-    private void SetPseudoVelocity()
-    {
-        if (_lastFramePosition != null)
-        {
-            pseudoVelocity = (transform.position - _lastFramePosition) / Runner.DeltaTime;
-        }
-        _lastFramePosition = transform.position;
-    }
-
-    //public void BindCarKcc()
-    //{
-    //    NetworkObject targetCarObject = Runner.GetPlayerObject(TargetPlayer);
-    //    KCC targetKcc = targetCarObject.GetComponent<KCC>();
-    //    _carKcc = targetKcc;
-    //    _ropeScript.BindRope(targetKcc, _ballKcc);
-    //}
 }
