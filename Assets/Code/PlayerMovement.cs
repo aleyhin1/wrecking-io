@@ -3,6 +3,7 @@ using Fusion.KCC;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -37,7 +38,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        Kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
+        if ((handlePos - backgroundPos).magnitude > 0)
+        {
+            Kcc.SetInputDirection(GetMovementDirection());
+        }
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)
@@ -55,19 +59,11 @@ public class PlayerMovement : NetworkBehaviour
         
     }
 
-    private Vector3 GetMovementDirection(Vector2 initialVector, Vector2 lastVector)
+    private Vector3 GetMovementDirection()
     {
-        Vector2 inputVector = (lastVector - initialVector);
-        if (inputVector.magnitude > 100)
-        {   
-            Vector3 movementDirection = Quaternion.AngleAxis(GetCurrentCarAngle(), Vector3.up) * Vector3.right;
-            return movementDirection;
-        }
-        else
-        {
-            return Vector3.zero;
-        }
+        return Quaternion.AngleAxis(GetCurrentCarAngle(), Vector3.up) * Vector3.right;
     }
+
 
     private float GetCurrentCarAngle()
     {

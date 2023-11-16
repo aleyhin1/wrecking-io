@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  _joystickBackgroundTransform: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
 --- !u!114 &-9038154864898921015
 MonoBehaviour:
   m_ObjectHideFlags: 0
