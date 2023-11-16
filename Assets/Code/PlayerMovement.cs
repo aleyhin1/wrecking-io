@@ -38,10 +38,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Move(Vector2 backgroundPos, Vector2 handlePos)
     {
-        if ((handlePos - backgroundPos).magnitude > 0)
-        {
-            Kcc.SetInputDirection(GetMovementDirection());
-        }
+        Kcc.SetInputDirection(GetMovementDirection(backgroundPos, handlePos));
     }
 
     private float GetRotationAngle(Vector2 initialVector, Vector2 lastVector)
@@ -59,9 +56,17 @@ public class PlayerMovement : NetworkBehaviour
         
     }
 
-    private Vector3 GetMovementDirection()
+    private Vector3 GetMovementDirection(Vector2 backgroundPos, Vector2 handlePos)
     {
-        return Quaternion.AngleAxis(GetCurrentCarAngle(), Vector3.up) * Vector3.right;
+        Vector2 inputVector = handlePos - backgroundPos;
+        if (inputVector.magnitude > 0)
+        {
+            return Quaternion.AngleAxis(GetCurrentCarAngle(), Vector3.up) * Vector3.right;
+        }
+        else
+        {
+            return Vector2.zero;
+        }
     }
 
 
