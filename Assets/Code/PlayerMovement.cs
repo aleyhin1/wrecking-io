@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class PlayerMovement : NetworkBehaviour
 {
     public KCC Kcc { get; private set; }
-    public bool IsTurningFast = false;
+    [Networked] public NetworkBool IsTurningFast { get; set; } = false;
 
     public override void Spawned()
     {
@@ -81,11 +81,17 @@ public class PlayerMovement : NetworkBehaviour
         Vector2 inputVector = input.JoystickHandlePosition - input.JoystickBackgroundPosition;
         if (inputVector.y > 0)
         {
-            IsTurningFast = false;
+            RPC_SetBool(false);
         }
         else
         {
-            IsTurningFast = true;
+            RPC_SetBool(true);
         }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    public void RPC_SetBool(bool status)
+    {
+        IsTurningFast = status;
     }
 }
