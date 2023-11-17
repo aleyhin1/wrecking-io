@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class PlayerMovement : NetworkBehaviour
 {
     public KCC Kcc { get; private set; }
+    public bool IsTurningFast = false;
 
     public override void Spawned()
     {
@@ -21,6 +22,7 @@ public class PlayerMovement : NetworkBehaviour
         {
            Rotate(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
            Move(input.JoystickBackgroundPosition, input.JoystickHandlePosition);
+           DetermineRotationSpeed(input);
         }
     }
 
@@ -69,9 +71,21 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-
     private float GetCurrentCarAngle()
     {
         return Kcc.Data.TransformRotation.eulerAngles.y;
+    }
+
+    private void DetermineRotationSpeed(NetworkInputData input)
+    {
+        Vector2 inputVector = input.JoystickHandlePosition - input.JoystickBackgroundPosition;
+        if (inputVector.y > 0)
+        {
+            IsTurningFast = false;
+        }
+        else
+        {
+            IsTurningFast = true;
+        }
     }
 }
