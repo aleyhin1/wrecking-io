@@ -309,7 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  pseudoVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &503609639360927827
 MonoBehaviour:
   m_ObjectHideFlags: 0
