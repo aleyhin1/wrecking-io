@@ -17,8 +17,6 @@ public class PlayerCollision : NetworkBehaviour
 
     private void BallCollision(KCC kcc, KCCCollision collision)
     {
-        if (!Runner.IsServer) return;
-
         if (collision.Collider.tag == "Ball")
         {
             BallMovement ballMovementScript = collision.Collider.GetComponent<BallMovement>();

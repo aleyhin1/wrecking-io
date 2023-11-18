@@ -148,7 +148,6 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     public void SetNickName(string text)
     {
         NickName = text;
-        Debug.Log(NickName);
     }
 
     #region NetworkRunnerCallbacks

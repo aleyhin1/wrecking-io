@@ -33,6 +33,12 @@
     "m_CategoryData": [
         {
             "m_Id": "c59e15371f6c4705b4049013171bb4b1"
+        },
+        {
+            "m_Id": "fd021b1963df438bbf3bff04a8e1e7af"
+        },
+        {
+            "m_Id": "fc995f888d9e4fd6bb8e6b2a75a7ccb8"
         }
     ],
     "m_Nodes": [
@@ -1986,24 +1992,6 @@
             "m_Id": "6d0c0761893342e7bc7b82349b991630"
         },
         {
-            "m_Id": "a11c43ef51c1433ab759bfd00e574fd7"
-        },
-        {
-            "m_Id": "13965f921db24bceaa597b56cd549797"
-        },
-        {
-            "m_Id": "3ea1fea8eb9146809ee70e94c43521b5"
-        },
-        {
-            "m_Id": "f076ac369fe64291b8016ab070cd2a4d"
-        },
-        {
-            "m_Id": "618f8eb687e94de5abe95a2a0b71c249"
-        },
-        {
-            "m_Id": "b71c8e5eee874ec69a40b25e135f4563"
-        },
-        {
             "m_Id": "8bf01570712545d4b23b5103a799b1fe"
         }
     ]
@@ -2778,5 +2766,41 @@
     "m_Property": {
         "m_Id": "f076ac369fe64291b8016ab070cd2a4d"
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "fc995f888d9e4fd6bb8e6b2a75a7ccb8",
+    "m_Name": "Flow",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "b71c8e5eee874ec69a40b25e135f4563"
+        },
+        {
+            "m_Id": "618f8eb687e94de5abe95a2a0b71c249"
+        }
+    ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "fd021b1963df438bbf3bff04a8e1e7af",
+    "m_Name": "Foam",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "f076ac369fe64291b8016ab070cd2a4d"
+        },
+        {
+            "m_Id": "a11c43ef51c1433ab759bfd00e574fd7"
+        },
+        {
+            "m_Id": "13965f921db24bceaa597b56cd549797"
+        },
+        {
+            "m_Id": "3ea1fea8eb9146809ee70e94c43521b5"
+        }
+    ]
 }
 
